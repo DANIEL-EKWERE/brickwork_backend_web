@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brickwork Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="container mt-5">
+
+    <h1 class="mb-4">🧱 Brickwork Dashboard (Celery-powered)</h1>
+
+<h2>Injection Exports</h2>
+<button onclick="runTask('all')">Run All Sequentially</button>
+<button onclick="runTask('parallel')">Run All in Parallel</button>
+<button onclick="runTask('category')">Export Category</button>
+<button onclick="runTask('color')">Export Color</button>
+<button onclick="runTask('parts')">Export Parts</button>
+<button onclick="runTask('minifigures')">Export Minifigures</button>
+<button onclick="runTask('gears')">Export Gears</button>
+<button onclick="runTask('parts_colors')">Export Parts + Colors</button>
+
+<script>
+{% comment %} function runTask(script) {
+    axios.get(`/dashboard/run/${script}/`).then(res => {
+        document.getElementById("status-box").innerText = 
+            `Started ${script} | Task ID: ${res.data.task_id}`;
+        checkStatus(res.data.task_id);
+    });
+}
+
+function runAll() {
+    axios.get("/dashboard/run_all/").then(res => {
+        document.getElementById("status-box").innerText = 
+            `Started ALL | Task ID: ${res.data.task_id}`;
+        checkStatus(res.data.task_id);
+    });
+}
+
+function checkStatus(taskId) {
+    setInterval(() => {
+        axios.get(`/dashboard/status/${taskId}/`).then(res => {
+            document.getElementById("status-box").innerText = 
+                `Task ${taskId}: ${res.data.status}`;
+        });
+    }, 3000);
+}
+
+setInterval(() => {
+    fetch(window.location.href)
+      .then(res => res.text())
+      .then(html => {
+          document.body.innerHTML = html;
+      });
+}, 5000); // refresh every 5 seconds
+
+
+
+let currentTaskId = null;
+
+function runTask(script) {
+    axios.get(`/dashboard/run/${script}/`).then(res => {
+        currentTaskId = res.data.task_id;
+        document.getElementById("status-box").innerText = 
+            `Started ${script} | Task ID: ${currentTaskId}`;
+        document.getElementById("stopBtn").style.display = "inline-block";
+        checkStatus(currentTaskId);
+    });
+}
+
+function runAll() {
+    axios.get("/dashboard/run_all/").then(res => {
+        currentTaskId = res.data.task_id;
+        document.getElementById("status-box").innerText = 
+            `Started ALL | Task ID: ${currentTaskId}`;
+        document.getElementById("stopBtn").style.display = "inline-block";
+        checkStatus(currentTaskId);
+    });
+}
+
+function checkStatus(taskId) {
+    setInterval(() => {
+        axios.get(`/dashboard/status/${taskId}/`).then(res => {
+            document.getElementById("status-box").innerText = 
+                `Task ${taskId}: ${res.data.status}`;
+        });
+    }, 3000);
+}
+
+document.getElementById("stopBtn").addEventListener("click", () => {
+    if (currentTaskId) {
+        axios.get(`/dashboard/stop/${currentTaskId}/`).then(res => {
+            document.getElementById("status-box").innerText = 
+                `Task ${res.data.task_id} stopped`;
+            document.getElementById("stopBtn").style.display = "none";
+        });
+    }
+}); {% endcomment %}
+
+function runTask(name) {
+    axios.get(`/dashboard/run/${name}/`).then(res => {
+        alert("Started " + name + " (Task ID: " + res.data.task_id + ")");
+    });
+}
+</script>
+
+</body>
+</html>
