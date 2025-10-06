@@ -1,3 +1,28 @@
+# #!/usr/bin/env python
+# import os
+# import sys
+# import django
+
+# # Current file: /home/danielekwere/Desktop/restored/django-projects/scrapper/brickwork_backend/src/ingestion.py
+# current_dir = os.path.dirname(os.path.abspath(__file__))  
+# # Result: /home/danielekwere/Desktop/restored/django-projects/scrapper/brickwork_backend/src
+
+# brickwork_root = os.path.dirname(current_dir)
+# # Result: /home/danielekwere/Desktop/restored/django-projects/scrapper/brickwork_backend
+
+# project_root = os.path.dirname(brickwork_root)
+# # Result: /home/danielekwere/Desktop/restored/django-projects/scrapper
+
+# # Add project root to Python path
+# sys.path.insert(0, project_root)
+
+# # Set Django settings module
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'brickwork_backend.settings')
+
+# # Setup Django
+# django.setup()
+
+
 import html
 import json
 from pprint import pprint
@@ -9,11 +34,11 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from sqlalchemy.orm import Session
 
-from common import upload_object_to_s3
-from constants import LINKS_TO_DOWNLOAD, ROOT_DIR
-from crud_util import construct_insert_sql
-from database import Base, SessionLocal, engine
-from schema import (
+from .common import upload_object_to_s3
+from .constants import LINKS_TO_DOWNLOAD, ROOT_DIR
+from .crud_util import construct_insert_sql
+from .database import Base, SessionLocal, engine
+from .schema import (
     Category,
     Codes,
     Color,
@@ -36,6 +61,23 @@ Base.metadata.create_all(bind=engine)
 # """
 
 Inventory =  {}
+
+'''
+my own logs
+'''
+import os
+from django.utils import timezone
+
+LOG_DIR = "logs"
+os.makedirs(LOG_DIR, exist_ok=True)
+
+
+def log_output(filename, message):
+    log_file = os.path.join(LOG_DIR, filename)
+    with open(log_file, "a") as f:
+        f.write(f"[{timezone.now()}] {message}\n")
+
+
 
 def restore_from_backup(backup_file_path):
     if backup_file_path.exists():
@@ -60,11 +102,13 @@ def get_db() -> Session:
 
 def insert_xml_file_to_db(*, path, klass, columns_mapping):
     print(f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
+    log_output("ingestion.log", f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
     df = pd.read_xml(path)[columns_mapping.keys()]
     df = df.rename(columns=columns_mapping).replace({np.nan: None})
     objs = df.to_dict("records")
     insert_to_db(klass=klass, columns=df.columns.values, params=objs)
     print(f"########## Completed {klass.__tablename__} write {len(objs)} items ###########\n\n")
+    log_output("ingestion.log", f"########## Completed {klass.__tablename__} write {len(objs)} items ###########\n\n")
 
 
 def insert_to_db(*, klass, columns, params):
@@ -132,16 +176,160 @@ def export_inventory_to_json():
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="inventory.json")
 
 
+# def export_minifigures_to_json():
+#     """Export Minifigure file to aws s3 bucket"""
+#     print("########## Start -> Exporting Minifigures to Json  ###########\n\n")
+#     log_output("ingestion.log", "########## Start -> Exporting Minifigures to Json  ###########\n\n")
+
+#     db = get_db()
+#     list_of_data = []
+#     minifigures = db.query(
+#         MiniFigures.item_id, MiniFigures.name, MiniFigures.category,Category.category_name
+#         ).join(Category, MiniFigures.category == Category.category_id).all()
+#     print("%s mini figures" % (len(minifigures)))
+#     for minifig in minifigures:
+#         data = {
+#             "item_name": html.unescape(minifig.name),
+#             "item_id": minifig.item_id,
+#             "category_id": minifig.category,
+#             "category_name": html.unescape(minifig.category_name),
+#         }
+#         list_of_data.append(data)
+#     pprint(list_of_data[:5])
+#     log_output("ingestion.log", list_of_data[:5])
+#     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="minifigures.json")
+#     print("%s Completed -> Minifigures Exported \n\n" % (len(minifigures)))
+#     log_output("ingestion.log", "Completed exporting minifigures")
+
+# def export_gears_to_json():
+#     """Export Gears file to aws s3 bucket"""
+#     print("########## Start -> Exporting Gears to Json  ###########\n\n")
+#     log_output("ingestion.log", "########## Start -> Exporting Gears to Json  ###########\n\n")
+#     db = get_db()
+#     list_of_data = []
+#     gears = db.query(
+#         Gears.item_id, Gears.name, Gears.category,Category.category_name
+#         ).join(Category, Gears.category == Category.category_id).all()
+#     print("%s gears" % (len(gears)))
+#     for gear in gears:
+#         data = {
+#             "item_id": gear.item_id,
+#             "item_name": html.unescape(gear.name),
+#             "category_id": gear.category,
+#             "category_name": html.unescape(gear.category_name),
+#         }
+#         list_of_data.append(data)
+#     pprint(list_of_data[:5])
+#     log_output("ingestion.log", list_of_data[:5])
+#     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="gears.json")
+#     print("%s Completed -> Gears Exported \n\n" % (len(gears)),"\n")
+#     log_output("ingestion.log", "%s Completed -> Gears Exported \n\n" % (len(gears)),"\n")
+
+
+# def export_category_to_json():
+#     """Export Category file to aws s3 bucket"""
+#     print("########## Start -> Exporting Category to Json  ###########\n\n")
+#     log_output("ingestion.log", "########## Start -> Exporting Category to Json  ###########\n\n")
+#     db = get_db()
+#     list_of_data = []
+#     categories = db.query(Category).all()
+#     print("%s categories" % (len(categories)))
+#     for category in categories:
+#         data = {
+#             "category_id": category.category_id,
+#             "category_name": html.unescape(category.category_name),
+#         }
+#         list_of_data.append(data)
+#     pprint(list_of_data[:5])
+#     log_output("categories.log", list_of_data[:5])
+#     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="categories.json")
+#     print("%s Completed -> Category Exported\n\n" % (len(categories)))
+#     log_output("ingestion.log", "%s Completed -> Category Exported\n\n" % (len(categories)))
+
+# def export_color_to_json():
+#     """Export Color file to aws s3 bucket"""
+#     print("########## Start -> Exporting Color to Json  ###########\n\n")
+#     log_output("ingestion.log", "########## Start -> Exporting Color to Json  ###########\n\n")
+#     db = get_db()
+#     list_of_data = []
+#     colors = db.query(Color).all()
+#     print("%s colors" % (len(colors)))
+#     for color in colors:
+#         data = {
+#             "color_id": color.color_id,
+#             "color_name": html.unescape(color.color_name),
+#             "color_code": color.color_code,
+#             "color_type": color.color_type,
+#         }
+#         list_of_data.append(data)
+#     pprint(list_of_data[:5])
+#     log_output("ingestion.log", list_of_data[:5])
+#     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="colors.json")
+#     print("%s Completed -> Color Exported\n\n" % (len(colors)))
+#     log_output("ingestion.log", "%s Completed -> Color Exported\n\n" % (len(colors)))
+
+# def export_parts_to_json():
+#     """Export Parts file to aws s3 bucket"""
+#     print("########## Start -> Exporting Parts to Json  ###########\n\n")
+#     log_output("ingestion.log", "########## Start -> Exporting Parts to Json  ###########\n\n")
+#     db = get_db()
+#     list_of_data = []
+#     parts = db.query(Parts.name,Parts.item_id,Parts.category, Category.category_name
+#                      ).join(Category,Parts.category == Category.category_id).all()
+#     print("%s parts" % (len(parts)))
+#     for part in parts:
+#         data = {
+#             "item_id": part.item_id,
+#             "name": html.unescape(part.name),
+#             "category_id": part.category,
+#             "category_name": html.unescape(part.category_name),
+#         }
+#         list_of_data.append(data)
+#     pprint(list_of_data[:5])
+#     log_output("ingestion.log", list_of_data[:5])
+#     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="parts.json")
+#     print("%s Completed -> Parts Exported\n\n" % (len(parts)))
+#     log_output("ingestion.log", "%s Completed -> Parts Exported\n\n" % (len(parts)))
+
+# def export_parts_with_colors_to_json():
+
+#     db = get_db()
+#     list_of_data = []
+#     parts_with_colors = db.query(
+#         Codes.item_id, Codes.item_type, Codes.color_name, Color.color_id, Color.color_code, Color.color_type
+#     ).join(Color, Codes.color_name == Color.color_name).all()
+
+#     print("%s parts with colors" % (len(parts_with_colors)))
+#     log_output("parts_with_colors.log", "%s parts with colors" % (len(parts_with_colors)))
+#     for part in parts_with_colors:
+#         data = {
+#             "item_id": part.item_id,
+#             "color_name": html.unescape(part.color_name),
+#             "color_id": part.color_id,
+#             "color_code": part.color_code,
+#             "color_type": part.color_type,
+#         }
+#         list_of_data.append(data)
+#     pprint(list_of_data[:5])
+#     log_output("parts_with_colors.log", list_of_data[:5])
+#     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="parts_with_colors.json")
+#     print("%s Completed -> Parts with colors \n\n" % (len(parts_with_colors)))
+#     log_output("parts_with_colors.log", "%s Completed -> Parts with colors \n\n" % (len(parts_with_colors)))
+
 def export_minifigures_to_json():
     """Export Minifigure file to aws s3 bucket"""
     print("########## Start -> Exporting Minifigures to Json  ###########\n\n")
+    log_output("ingestion.log", "########## Start -> Exporting Minifigures to Json  ###########")
 
     db = get_db()
     list_of_data = []
     minifigures = db.query(
-        MiniFigures.item_id, MiniFigures.name, MiniFigures.category,Category.category_name
-        ).join(Category, MiniFigures.category == Category.category_id).all()
+        MiniFigures.item_id, MiniFigures.name, MiniFigures.category, Category.category_name
+    ).join(Category, MiniFigures.category == Category.category_id).all()
+    
     print("%s mini figures" % (len(minifigures)))
+    log_output("ingestion.log", f"{len(minifigures)} mini figures found")
+    
     for minifig in minifigures:
         data = {
             "item_name": html.unescape(minifig.name),
@@ -150,19 +338,30 @@ def export_minifigures_to_json():
             "category_name": html.unescape(minifig.category_name),
         }
         list_of_data.append(data)
+    
     pprint(list_of_data[:5])
+    log_output("ingestion.log", f"Sample data: {json.dumps(list_of_data[:5], indent=2)}")  # Convert to string
+    
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="minifigures.json")
+    
     print("%s Completed -> Minifigures Exported \n\n" % (len(minifigures)))
+    log_output("ingestion.log", f"Completed exporting {len(minifigures)} minifigures")
+
 
 def export_gears_to_json():
     """Export Gears file to aws s3 bucket"""
     print("########## Start -> Exporting Gears to Json  ###########\n\n")
+    log_output("ingestion.log", "########## Start -> Exporting Gears to Json  ###########")
+    
     db = get_db()
     list_of_data = []
     gears = db.query(
-        Gears.item_id, Gears.name, Gears.category,Category.category_name
-        ).join(Category, Gears.category == Category.category_id).all()
+        Gears.item_id, Gears.name, Gears.category, Category.category_name
+    ).join(Category, Gears.category == Category.category_id).all()
+    
     print("%s gears" % (len(gears)))
+    log_output("ingestion.log", f"{len(gears)} gears found")
+    
     for gear in gears:
         data = {
             "item_id": gear.item_id,
@@ -171,35 +370,56 @@ def export_gears_to_json():
             "category_name": html.unescape(gear.category_name),
         }
         list_of_data.append(data)
+    
     pprint(list_of_data[:5])
+    log_output("ingestion.log", f"Sample data: {json.dumps(list_of_data[:5], indent=2)}")
+    
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="gears.json")
-    print("%s Completed -> Gears Exported \n\n" % (len(gears)),"\n")
+    
+    print("%s Completed -> Gears Exported \n\n" % (len(gears)))
+    log_output("ingestion.log", f"Completed exporting {len(gears)} gears")
 
 
 def export_category_to_json():
     """Export Category file to aws s3 bucket"""
     print("########## Start -> Exporting Category to Json  ###########\n\n")
+    log_output("ingestion.log", "########## Start -> Exporting Category to Json  ###########")
+    
     db = get_db()
     list_of_data = []
     categories = db.query(Category).all()
+    
     print("%s categories" % (len(categories)))
+    log_output("ingestion.log", f"{len(categories)} categories found")
+    
     for category in categories:
         data = {
             "category_id": category.category_id,
             "category_name": html.unescape(category.category_name),
         }
         list_of_data.append(data)
+    
     pprint(list_of_data[:5])
+    log_output("ingestion.log", f"Sample data: {json.dumps(list_of_data[:5], indent=2)}")  # Fixed typo
+    
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="categories.json")
+    
     print("%s Completed -> Category Exported\n\n" % (len(categories)))
+    log_output("ingestion.log", f"Completed exporting {len(categories)} categories")
+
 
 def export_color_to_json():
     """Export Color file to aws s3 bucket"""
     print("########## Start -> Exporting Color to Json  ###########\n\n")
+    log_output("ingestion.log", "########## Start -> Exporting Color to Json  ###########")
+    
     db = get_db()
     list_of_data = []
     colors = db.query(Color).all()
+    
     print("%s colors" % (len(colors)))
+    log_output("ingestion.log", f"{len(colors)} colors found")
+    
     for color in colors:
         data = {
             "color_id": color.color_id,
@@ -208,18 +428,30 @@ def export_color_to_json():
             "color_type": color.color_type,
         }
         list_of_data.append(data)
+    
     pprint(list_of_data[:5])
+    log_output("ingestion.log", f"Sample data: {json.dumps(list_of_data[:5], indent=2)}")
+    
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="colors.json")
+    
     print("%s Completed -> Color Exported\n\n" % (len(colors)))
+    log_output("ingestion.log", f"Completed exporting {len(colors)} colors")
+
 
 def export_parts_to_json():
     """Export Parts file to aws s3 bucket"""
     print("########## Start -> Exporting Parts to Json  ###########\n\n")
+    log_output("ingestion.log", "########## Start -> Exporting Parts to Json  ###########")
+    
     db = get_db()
     list_of_data = []
-    parts = db.query(Parts.name,Parts.item_id,Parts.category, Category.category_name
-                     ).join(Category,Parts.category == Category.category_id).all()
+    parts = db.query(
+        Parts.name, Parts.item_id, Parts.category, Category.category_name
+    ).join(Category, Parts.category == Category.category_id).all()
+    
     print("%s parts" % (len(parts)))
+    log_output("ingestion.log", f"{len(parts)} parts found")
+    
     for part in parts:
         data = {
             "item_id": part.item_id,
@@ -228,19 +460,31 @@ def export_parts_to_json():
             "category_name": html.unescape(part.category_name),
         }
         list_of_data.append(data)
+    
     pprint(list_of_data[:5])
+    log_output("ingestion.log", f"Sample data: {json.dumps(list_of_data[:5], indent=2)}")
+    
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="parts.json")
+    
     print("%s Completed -> Parts Exported\n\n" % (len(parts)))
+    log_output("ingestion.log", f"Completed exporting {len(parts)} parts")
+
 
 def export_parts_with_colors_to_json():
+    """Export Parts with Colors to JSON"""
+    print("########## Start -> Exporting Parts with Colors to Json  ###########\n\n")
+    log_output("ingestion.log", "########## Start -> Exporting Parts with Colors to Json  ###########")  # Fixed filename
 
     db = get_db()
     list_of_data = []
     parts_with_colors = db.query(
-        Codes.item_id, Codes.item_type, Codes.color_name, Color.color_id, Color.color_code, Color.color_type
+        Codes.item_id, Codes.item_type, Codes.color_name, 
+        Color.color_id, Color.color_code, Color.color_type
     ).join(Color, Codes.color_name == Color.color_name).all()
 
     print("%s parts with colors" % (len(parts_with_colors)))
+    log_output("ingestion.log", f"{len(parts_with_colors)} parts with colors found")
+    
     for part in parts_with_colors:
         data = {
             "item_id": part.item_id,
@@ -250,9 +494,14 @@ def export_parts_with_colors_to_json():
             "color_type": part.color_type,
         }
         list_of_data.append(data)
+    
     pprint(list_of_data[:5])
+    log_output("ingestion.log", f"Sample data: {json.dumps(list_of_data[:5], indent=2)}")
+    
     upload_object_to_s3(object=json.dumps(list_of_data), s3_file_name="parts_with_colors.json")
+    
     print("%s Completed -> Parts with colors \n\n" % (len(parts_with_colors)))
+    log_output("ingestion.log", f"Completed exporting {len(parts_with_colors)} parts with colors")
 
 
 def main():
@@ -355,7 +604,8 @@ def run_all_exports():
     export_parts_with_colors_to_json()
 
 if __name__ == "__main__":
-    run_all_exports()
+    # run_all_exports()
+    main()
 
 
 '''

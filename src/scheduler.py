@@ -1,7 +1,7 @@
 import sys
 import json
-import downloader
-import ingestion as ingestion
+from . import downloader
+from . import ingestion as ingestion
 from datetime import datetime, timedelta
 from constants import ROOT_DIR, LAST_RUN_FILE_NAME
 

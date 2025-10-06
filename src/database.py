@@ -3,8 +3,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from common import download_object_from_s3, upload_object_to_s3
-from constants import ROOT_DIR, DB_FILE_NAME
+from .common import download_object_from_s3, upload_object_to_s3
+from .constants import ROOT_DIR, DB_FILE_NAME
 
 
 def download_db():

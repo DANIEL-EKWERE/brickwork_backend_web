@@ -1,107 +1,495 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Brickwork Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brickwork Command Center</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000000;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.container-fluid {
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00d4ff, #ff00ff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+.status-bar {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-active { background: #00ff88; }
+.status-idle { background: #888; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.section-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #00d4ff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-icon {
+  font-size: 1.8rem;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .btn-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.task-btn {
+  position: relative;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.task-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.task-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.task-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 1);
+}
+
+.task-btn:active {
+  transform: translateY(0px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.task-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.task-btn.running {
+  background: rgba(0, 255, 136, 0.95);
+  color: #000;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.6); }
+  50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.9); }
+}
+
+.log-container {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 1.5rem;
+  height: 400px;
+  overflow-y: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #00ff88;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.log-container::before {
+  content: '> SYSTEM LOGS';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 212, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+.log-container pre {
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+  color: #00ff88;
+}
+
+.log-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.log-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.log-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.5);
+  border-radius: 10px;
+}
+
+.log-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.8);
+}
+
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 255, 136, 0.9);
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(400px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(1.05);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00d4ff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #aaa;
+  text-transform: uppercase;
+}
+</style>
 </head>
-<body class="container mt-5">
+<body>
+<div class="container-fluid">
+  <div class="dashboard-header">
+    <h1>🧱 BRICKWORK COMMAND CENTER</h1>
+    <p style="color: #aaa; font-size: 1.1rem;">Celery-Powered Data Pipeline Management System</p>
+    <div class="status-bar">
+      <div class="status-indicator">
+        <div class="status-dot status-active"></div>
+        <span>System Online</span>
+      </div>
+      <div class="status-indicator">
+        <div class="status-dot" id="task-status"></div>
+        <span id="task-status-text">Idle</span>
+      </div>
+    </div>
+  </div>
 
-    <h1 class="mb-4">🧱 Brickwork Dashboard (Celery-powered)</h1>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value" id="total-tasks">0</div>
+      <div class="stat-label">Total Tasks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="active-tasks">0</div>
+      <div class="stat-label">Active</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="completed-tasks">0</div>
+      <div class="stat-label">Completed</div>
+    </div>
+  </div>
 
-<h2>Injection Exports</h2>
-<button onclick="runTask('all')">Run All Sequentially</button>
-<button onclick="runTask('parallel')">Run All in Parallel</button>
-<button onclick="runTask('category')">Export Category</button>
-<button onclick="runTask('color')">Export Color</button>
-<button onclick="runTask('parts')">Export Parts</button>
-<button onclick="runTask('minifigures')">Export Minifigures</button>
-<button onclick="runTask('gears')">Export Gears</button>
-<button onclick="runTask('parts_colors')">Export Parts + Colors</button>
+  <div class="main-grid">
+    <div>
+      <div class="section-card">
+        <div class="section-title">
+          <span class="section-icon">⚡</span>
+          Core Pipeline Tasks
+        </div>
+        <div class="btn-grid">
+          <button class="task-btn" onclick="runTask('initialise')" id="btn-initialise">
+            <span>🎯 Initialise Data</span>
+          </button>
+          <button class="task-btn" onclick="runTask('download')" id="btn-download">
+            <span>📥 Download Data</span>
+          </button>
+          <button class="task-btn" onclick="runTask('ingestion')" id="btn-ingestion">
+            <span>🔄 Ingest Data</span>
+          </button>
+          <button class="task-btn" onclick="runTask('pipeline')" id="btn-pipeline">
+            <span>⚙️ Full Pipeline</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">
+          <span class="section-icon">🚀</span>
+          Batch Operations
+        </div>
+        <div class="btn-grid">
+          <button class="task-btn" onclick="runTask('all')" id="btn-all">
+            <span>📋 Run All (Sequential)</span>
+          </button>
+          <button class="task-btn" onclick="runTask('parallel')" id="btn-parallel">
+            <span>⚡ Run All (Parallel)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">
+          <span class="section-icon">📊</span>
+          Data Export Operations
+        </div>
+        <div class="btn-grid">
+          <button class="task-btn" onclick="runTask('category')" id="btn-category">
+            <span>📁 Export Category</span>
+          </button>
+          <button class="task-btn" onclick="runTask('color')" id="btn-color">
+            <span>🎨 Export Color</span>
+          </button>
+          <button class="task-btn" onclick="runTask('parts')" id="btn-parts">
+            <span>🔧 Export Parts</span>
+          </button>
+          <button class="task-btn" onclick="runTask('minifigures')" id="btn-minifigures">
+            <span>👤 Export Minifigures</span>
+          </button>
+          <button class="task-btn" onclick="runTask('gears')" id="btn-gears">
+            <span>⚙️ Export Gears</span>
+          </button>
+          <button class="task-btn" onclick="runTask('parts_colors')" id="btn-parts_colors">
+            <span>🌈 Export Parts+Colors</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-card" style="height: calc(100% - 2rem);">
+        <div class="section-title">
+          <span class="section-icon">📜</span>
+          System Logs
+        </div>
+        <div class="log-container" style="height: calc(100% - 80px);">
+          <pre id="log-viewer">Initializing system logs...</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-{% comment %} function runTask(script) {
-    axios.get(`/dashboard/run/${script}/`).then(res => {
-        document.getElementById("status-box").innerText = 
-            `Started ${script} | Task ID: ${res.data.task_id}`;
-        checkStatus(res.data.task_id);
-    });
+const runningTasks = new Set();
+let totalTasks = 0;
+let completedTasks = 0;
+
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
 }
 
-function runAll() {
-    axios.get("/dashboard/run_all/").then(res => {
-        document.getElementById("status-box").innerText = 
-            `Started ALL | Task ID: ${res.data.task_id}`;
-        checkStatus(res.data.task_id);
-    });
+function updateStats() {
+  document.getElementById('total-tasks').textContent = totalTasks;
+  document.getElementById('active-tasks').textContent = runningTasks.size;
+  document.getElementById('completed-tasks').textContent = completedTasks;
+  
+  const statusDot = document.getElementById('task-status');
+  const statusText = document.getElementById('task-status-text');
+  
+  if (runningTasks.size > 0) {
+    statusDot.className = 'status-dot status-active';
+    statusText.textContent = `Running (${runningTasks.size})`;
+  } else {
+    statusDot.className = 'status-dot status-idle';
+    statusText.textContent = 'Idle';
+  }
 }
 
-function checkStatus(taskId) {
-    setInterval(() => {
-        axios.get(`/dashboard/status/${taskId}/`).then(res => {
-            document.getElementById("status-box").innerText = 
-                `Task ${taskId}: ${res.data.status}`;
-        });
-    }, 3000);
+function runTask(name) {
+  const btn = document.getElementById(`btn-${name}`);
+  if (btn) btn.classList.add('running');
+  
+  runningTasks.add(name);
+  totalTasks++;
+  updateStats();
+  
+  axios.get(`/dashboard/run/${name}/`).then(res => {
+    const taskId = res.data.task_id;
+    showToast(`✓ Started ${name.toUpperCase()} (Task ID: ${taskId.substring(0, 8)}...)`);
+    
+    setTimeout(() => {
+      if (btn) btn.classList.remove('running');
+      runningTasks.delete(name);
+      completedTasks++;
+      updateStats();
+    }, 5000);
+  }).catch(err => {
+    console.error('Error starting task:', err);
+    showToast(`✗ Failed to start ${name}`);
+    if (btn) btn.classList.remove('running');
+    runningTasks.delete(name);
+    updateStats();
+  });
 }
 
 setInterval(() => {
-    fetch(window.location.href)
-      .then(res => res.text())
-      .then(html => {
-          document.body.innerHTML = html;
-      });
-}, 5000); // refresh every 5 seconds
+  axios.get("/dashboard/logs/").then(res => {
+    const logViewer = document.getElementById("log-viewer");
+    logViewer.textContent = res.data.logs || 'No logs available...';
+    logViewer.scrollTop = logViewer.scrollHeight;
+  }).catch(err => {
+    console.error('Error fetching logs:', err);
+  });
+}, 3000);
 
-
-
-let currentTaskId = null;
-
-function runTask(script) {
-    axios.get(`/dashboard/run/${script}/`).then(res => {
-        currentTaskId = res.data.task_id;
-        document.getElementById("status-box").innerText = 
-            `Started ${script} | Task ID: ${currentTaskId}`;
-        document.getElementById("stopBtn").style.display = "inline-block";
-        checkStatus(currentTaskId);
-    });
-}
-
-function runAll() {
-    axios.get("/dashboard/run_all/").then(res => {
-        currentTaskId = res.data.task_id;
-        document.getElementById("status-box").innerText = 
-            `Started ALL | Task ID: ${currentTaskId}`;
-        document.getElementById("stopBtn").style.display = "inline-block";
-        checkStatus(currentTaskId);
-    });
-}
-
-function checkStatus(taskId) {
-    setInterval(() => {
-        axios.get(`/dashboard/status/${taskId}/`).then(res => {
-            document.getElementById("status-box").innerText = 
-                `Task ${taskId}: ${res.data.status}`;
-        });
-    }, 3000);
-}
-
-document.getElementById("stopBtn").addEventListener("click", () => {
-    if (currentTaskId) {
-        axios.get(`/dashboard/stop/${currentTaskId}/`).then(res => {
-            document.getElementById("status-box").innerText = 
-                `Task ${res.data.task_id} stopped`;
-            document.getElementById("stopBtn").style.display = "none";
-        });
-    }
-}); {% endcomment %}
-
-function runTask(name) {
-    axios.get(`/dashboard/run/${name}/`).then(res => {
-        alert("Started " + name + " (Task ID: " + res.data.task_id + ")");
-    });
-}
+updateStats();
 </script>
-
 </body>
 </html>
