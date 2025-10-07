@@ -12,9 +12,11 @@ LAST_RUN_FILE_NAME = "last_run_at.json"
 
 LOGIN_URL = "https://www.bricklink.com/v2/login.page"
 
-BRICKLINK_EMAIL = "le_meridian"
+# BRICKLINK_EMAIL = "le_meridian"
+BRICKLINK_EMAIL = "sofrosyninc@gmail.com"
 
-BRICKLINK_PASSWORD = "test12345"
+BRICKLINK_PASSWORD = "Metallicoxide@5"
+# BRICKLINK_PASSWORD = "test12345"
 
 DOWNLOAD_PARTS_CSV = "https://www.bricklink.com/catalogDownload.asp?a=a&viewType=0&downloadType=T&itemType=P"
 

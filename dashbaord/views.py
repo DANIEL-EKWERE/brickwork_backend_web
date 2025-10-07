@@ -125,3 +125,35 @@ def get_logs(request):
 
 def response_data(request):
     return render(request, "dashboard/response.html")
+
+#@require_POST
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+import os
+
+@csrf_exempt  # Remove this if you're handling CSRF tokens properly
+@require_http_methods(["POST", "DELETE"])  # Only allow POST/DELETE, not GET
+def clear_log(request):
+    log_path = os.path.join(LOG_DIR, LOG_FILE)
+    try:
+        # Open in write mode to truncate the file
+        with open(log_path, "w") as f:
+            f.write("")  # Explicitly write empty string (cleaner than just pass)
+            print("Logs cleared successfully")
+        return JsonResponse({
+            "status": "cleared", 
+            "file": LOG_FILE,
+            "message": "Logs cleared successfully"
+        })
+    except FileNotFoundError:
+        # Handle case where log file doesn't exist yet
+        return JsonResponse({
+            "status": "success",
+            "message": "No log file to clear"
+        })
+    except Exception as e:
+        return JsonResponse({
+            "status": "error", 
+            "error": str(e)
+        }, status=500)

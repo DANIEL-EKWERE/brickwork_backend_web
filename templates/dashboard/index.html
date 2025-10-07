@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brickwork Command Center</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <style>
 * {
@@ -19,6 +20,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .container-fluid {
@@ -27,6 +30,7 @@ body {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  flex: 1;
 }
 
 .main-grid {
@@ -63,6 +67,17 @@ body {
   background-clip: text;
   margin-bottom: 0.5rem;
   animation: glow 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.dashboard-header h1 i {
+  background: linear-gradient(135deg, #00d4ff, #ff00ff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 @keyframes glow {
@@ -127,10 +142,11 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  justify-content: space-between;
 }
 
 .section-icon {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 .btn-grid {
@@ -194,6 +210,10 @@ body {
   z-index: 1;
 }
 
+.task-btn i {
+  margin-right: 0.5rem;
+}
+
 .task-btn.running {
   background: rgba(0, 255, 136, 0.95);
   color: #000;
@@ -205,13 +225,35 @@ body {
   50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.9); }
 }
 
+.clear-logs-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clear-logs-btn:hover {
+  background: rgba(255, 0, 0, 0.3);
+  color: #ff4444;
+  transform: scale(1.05);
+}
+
 .log-container {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 15px;
   border: 1px solid rgba(0, 212, 255, 0.3);
   padding: 1.5rem;
-  height: 400px;
+  height: 700px;
+  max-height: 700px;
   overflow-y: auto;
+  overflow-x: hidden;
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   color: #00ff88;
@@ -230,12 +272,17 @@ body {
   border-bottom: 1px solid rgba(0, 212, 255, 0.3);
   color: #00d4ff;
   font-weight: 600;
+  z-index: 1;
 }
 
 .log-container pre {
   margin-top: 2.5rem;
   margin-bottom: 0;
   color: #00ff88;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .log-container::-webkit-scrollbar {
@@ -308,12 +355,65 @@ body {
   color: #aaa;
   text-transform: uppercase;
 }
+
+.footer {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #00d4ff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-links a:hover {
+  color: #00ff88;
+}
+
+.footer-text {
+  color: #888;
+  font-size: 0.9rem;
+  flex-direction: row;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
 </style>
 </head>
 <body>
 <div class="container-fluid">
   <div class="dashboard-header">
-    <h1>🧱 BRICKWORK COMMAND CENTER</h1>
+    <h1><i class="fas fa-cubes"></i> BRICKWORK COMMAND CENTER</h1>
     <p style="color: #aaa; font-size: 1.1rem;">Celery-Powered Data Pipeline Management System</p>
     <div class="status-bar">
       <div class="status-indicator">
@@ -346,63 +446,69 @@ body {
     <div>
       <div class="section-card">
         <div class="section-title">
-          <span class="section-icon">⚡</span>
-          Core Pipeline Tasks
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-bolt section-icon"></i>
+            Core Pipeline Tasks
+          </div>
         </div>
         <div class="btn-grid">
           <button class="task-btn" onclick="runTask('initialise')" id="btn-initialise">
-            <span>🎯 Initialise Data</span>
+            <span><i class="fas fa-crosshairs"></i> Initialise Data</span>
           </button>
           <button class="task-btn" onclick="runTask('download')" id="btn-download">
-            <span>📥 Download Data</span>
+            <span><i class="fas fa-download"></i> Download Data</span>
           </button>
           <button class="task-btn" onclick="runTask('ingestion')" id="btn-ingestion">
-            <span>🔄 Ingest Data</span>
+            <span><i class="fas fa-sync-alt"></i> Ingest Data</span>
           </button>
           <button class="task-btn" onclick="runTask('pipeline')" id="btn-pipeline">
-            <span>⚙️ Full Pipeline</span>
+            <span><i class="fas fa-cogs"></i> Full Pipeline</span>
           </button>
         </div>
       </div>
 
       <div class="section-card">
         <div class="section-title">
-          <span class="section-icon">🚀</span>
-          Batch Operations
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-rocket section-icon"></i>
+            Batch Operations
+          </div>
         </div>
         <div class="btn-grid">
           <button class="task-btn" onclick="runTask('all')" id="btn-all">
-            <span>📋 Run All (Sequential)</span>
+            <span><i class="fas fa-list"></i> Run All (Sequential)</span>
           </button>
           <button class="task-btn" onclick="runTask('parallel')" id="btn-parallel">
-            <span>⚡ Run All (Parallel)</span>
+            <span><i class="fas fa-bolt"></i> Run All (Parallel)</span>
           </button>
         </div>
       </div>
 
       <div class="section-card">
         <div class="section-title">
-          <span class="section-icon">📊</span>
-          Data Export Operations
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-chart-bar section-icon"></i>
+            Data Export Operations
+          </div>
         </div>
         <div class="btn-grid">
           <button class="task-btn" onclick="runTask('category')" id="btn-category">
-            <span>📁 Export Category</span>
+            <span><i class="fas fa-folder"></i> Export Category</span>
           </button>
           <button class="task-btn" onclick="runTask('color')" id="btn-color">
-            <span>🎨 Export Color</span>
+            <span><i class="fas fa-palette"></i> Export Color</span>
           </button>
           <button class="task-btn" onclick="runTask('parts')" id="btn-parts">
-            <span>🔧 Export Parts</span>
+            <span><i class="fas fa-wrench"></i> Export Parts</span>
           </button>
           <button class="task-btn" onclick="runTask('minifigures')" id="btn-minifigures">
-            <span>👤 Export Minifigures</span>
+            <span><i class="fas fa-user"></i> Export Minifigures</span>
           </button>
           <button class="task-btn" onclick="runTask('gears')" id="btn-gears">
-            <span>⚙️ Export Gears</span>
+            <span><i class="fas fa-cog"></i> Export Gears</span>
           </button>
           <button class="task-btn" onclick="runTask('parts_colors')" id="btn-parts_colors">
-            <span>🌈 Export Parts+Colors</span>
+            <span><i class="fas fa-swatchbook"></i> Export Parts+Colors</span>
           </button>
         </div>
       </div>
@@ -411,16 +517,35 @@ body {
     <div>
       <div class="section-card" style="height: calc(100% - 2rem);">
         <div class="section-title">
-          <span class="section-icon">📜</span>
-          System Logs
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-terminal section-icon"></i>
+            System Logs
+          </div>
+          <button class="clear-logs-btn" onclick="clearLogs()">
+            <i class="fas fa-trash"></i>
+            <span>Clear</span>
+          </button>
         </div>
-        <div class="log-container" style="height: calc(100% - 80px);">
+        <div class="log-container">
           <pre id="log-viewer">Initializing system logs...</pre>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      &copy; 2024 Brickwork Command Center | Powered by Celery & Django
+    </div>
+    {% comment %} <div class="footer-links">
+      <a href="#"><i class="fas fa-book"></i> Documentation</a>
+      <a href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+      <a href="#"><i class="fas fa-cog"></i> Settings</a>
+    </div> {% endcomment %}
+  </div>
+</footer>
 
 <script>
 const runningTasks = new Set();
@@ -450,6 +575,16 @@ function updateStats() {
     statusDot.className = 'status-dot status-idle';
     statusText.textContent = 'Idle';
   }
+}
+
+function clearLogs() {
+  const logViewer = document.getElementById('log-viewer');
+  logViewer.textContent = 'Logs cleared...';
+  showToast('✓ Logs cleared');
+  
+  // Clear logs on backend
+  axios.post('/dashboard/clear-logs/')
+    .catch(err => console.error('Error clearing logs:', err));
 }
 
 function runTask(name) {

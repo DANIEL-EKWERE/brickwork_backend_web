@@ -1,9 +1,27 @@
-[2025-10-06 16:28:08.962293+00:00] Starting BrickLink data download...
-[2025-10-06 16:29:33.964374+00:00] Download completed successfully.
-[2025-10-06 16:34:33.353564+00:00] Starting BrickLink data download...
-[2025-10-06 16:37:32.755250+00:00] Download completed successfully.
-[2025-10-06 16:40:15.705993+00:00] Starting BrickLink data download...
-[2025-10-06 16:42:12.441705+00:00] Download completed successfully.
-[2025-10-06 16:48:20.851717+00:00] Starting BrickLink data download...
-[2025-10-06 16:49:40.573636+00:00] Download completed successfully.
-[2025-10-06 17:42:26.696686+00:00] Starting BrickLink data download...
+[2025-10-07 16:54:31.844725+00:00] Starting category export...
+[2025-10-07 16:54:31.845325+00:00] ########## Start -> Exporting Category to Json  ###########
+[2025-10-07 16:54:32.162919+00:00] 4600 categories found
+[2025-10-07 16:54:32.179465+00:00] Sample data: [
+  {
+    "category_id": "143",
+    "category_name": "(Other)"
+  },
+  {
+    "category_id": "1338",
+    "category_name": "101 Dalmatians"
+  },
+  {
+    "category_id": "318",
+    "category_name": "12V"
+  },
+  {
+    "category_id": "628",
+    "category_name": "1950"
+  },
+  {
+    "category_id": "797",
+    "category_name": "1954"
+  }
+]
+[2025-10-07 16:54:32.188786+00:00] Completed exporting 4600 categories
+[2025-10-07 16:54:32.206681+00:00] Export category completed successfully.
