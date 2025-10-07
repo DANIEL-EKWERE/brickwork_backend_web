@@ -110,6 +110,9 @@ def run_task(request, task_name):
     print(f"here ===> {LOG_FILE}")
     return JsonResponse({"task_id": task.id})
 
+def home(request):
+    return render(request, "dashboard/home.html")
+
 
 
 def get_logs(request):

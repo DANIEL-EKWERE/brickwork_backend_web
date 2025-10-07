@@ -16,5 +16,6 @@ urlpatterns = [
     path("dashboard/logs/", views.get_logs, name="get_logs"),
     path("dashboard/response/", views.response_data, name="response"),
     path("dashboard/clear-logs/", views.clear_log, name="clear_logs"),  # 👈 NEW
+    path("", views.home, name="home"),
 ]
 
