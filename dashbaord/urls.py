@@ -12,10 +12,10 @@ urlpatterns = [
     # path("stop/<str:task_id>/", views.stop_task, name="stop_task"),  # 👈 NEW
 
 
+    path("", views.home, name="home"),
     path("dashboard/run/<str:task_name>/", views.run_task, name="run_task"),
     path("dashboard/logs/", views.get_logs, name="get_logs"),
     path("dashboard/response/", views.response_data, name="response"),
     path("dashboard/clear-logs/", views.clear_log, name="clear_logs"),  # 👈 NEW
-    path("", views.home, name="home"),
 ]
 
