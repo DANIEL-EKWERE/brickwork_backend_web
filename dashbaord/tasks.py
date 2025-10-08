@@ -222,9 +222,11 @@ def create_task_entry(self, name):
     )
 
 def log_output(filename, message):
+    print(f"Logging to: {os.path.abspath(log_file)}")
     log_file = os.path.join(LOG_DIR, filename)
     with open(log_file, "a") as f:
         f.write(f"[{timezone.now()}] {message}\n")
+        print("message logged")
 
 # NEW TASK: Download XML files from BrickLink
 @shared_task(bind=True)
