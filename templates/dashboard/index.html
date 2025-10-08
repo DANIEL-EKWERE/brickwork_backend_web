@@ -616,7 +616,7 @@ function runTask(name) {
 
 setInterval(() => {
   axios.get("/dashboard/logs/").then(res => {
-    
+    console.log(res.data.logs);
     const logViewer = document.getElementById("log-viewer");
     logViewer.textContent = res.data.logs || 'No logs available...';
     logViewer.scrollTop = logViewer.scrollHeight;

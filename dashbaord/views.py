@@ -1,80 +1,12 @@
 from fileinput import filename
 from django.shortcuts import render
-# from django.http import JsonResponse
-# from .tasks import run_script, run_all
-# import os
-# from celery.result import AsyncResult
-# from django.http import HttpResponse
-# from brickwork_backend.celery import app
-# from .models import TaskHistory
-
-# def task_history(request):
-#     history = TaskHistory.objects.order_by("-start_time")[:20]  # latest 20
-#     return render(request, "dashboard/history.html", {"history": history})
-
-
-# def stop_task(request, task_id):
-#     """Stop a running Celery task"""
-#     res = AsyncResult(task_id, app=app)
-#     res.revoke(terminate=True, signal="SIGKILL")  # force kill
-#     return JsonResponse({"task_id": task_id, "status": "revoked"})
-
-
-
-
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# LOG_DIR = os.path.join(BASE_DIR, "logs")
-
-# def view_log(request, script_name):
-#     """Show logs with auto-refresh + highlighting"""
-#     log_file = os.path.join(LOG_DIR, f"{script_name}.log")
-
-#     if not os.path.exists(log_file):
-#         logs = ["No logs found."]
-#     else:
-#         with open(log_file, "r") as f:
-#             logs = f.readlines()
-
-#     return render(request, "dashboard/logs.html", {
-#         "script_name": script_name,
-#         "logs": logs,
-#     })
+from django.conf import settings
+from .models import IngestionLog
 
 def index(request):
     return render(request, "dashboard/index.html")
 
-# def run_single_task(request, script_name):
-#     task = run_script.delay(script_name)
-#     return JsonResponse({"task_id": task.id, "status": "queued"})
 
-# def run_all_tasks(request):
-#     task = run_all.delay()
-#     return JsonResponse({"task_id": task.id, "status": "queued"})
-
-# def task_status(request, task_id):
-#     from celery.result import AsyncResult
-#     res = AsyncResult(task_id)
-#     return JsonResponse({"task_id": task_id, "status": res.status})
-
-
-# from . import tasks
-
-# def run_task(request, task_name):
-#     task_map = {
-#         "category": tasks.run_export_category,
-#         "color": tasks.run_export_color,
-#         "parts": tasks.run_export_parts,
-#         "minifigures": tasks.run_export_minifigures,
-#         "gears": tasks.run_export_gears,
-#         "parts_colors": tasks.run_export_parts_with_colors,
-#         "all": tasks.run_all_exports,
-#         "parallel": tasks.run_all_exports_parallel,
-#     }
-#     if task_name not in task_map:
-#         return JsonResponse({"error": "Invalid task"}, status=400)
-
-#     task = task_map[task_name].delay()
-#     return JsonResponse({"task_id": task.id})
 
 import os
 from django.http import JsonResponse
@@ -115,16 +47,13 @@ def home(request):
 
 
 
+
 def get_logs(request):
-    log_file = os.path.join(LOG_DIR, LOG_FILE)
-    print(log_file)
-    if os.path.exists(log_file):
-        with open(log_file, "r") as f:
-            content = f.read()
-    else:
-        content = "No logs available yet."
-        print("No logs available yet.")
-    return JsonResponse({"logs": content})
+    logs = IngestionLog.objects.order_by('-created_at')[:500]
+    print
+    content = "\n".join(reversed([log.message for log in logs]))
+    return JsonResponse({"logs": content or "No logs available yet."})
+
 
 def response_data(request):
     return render(request, "dashboard/response.html")
@@ -138,25 +67,15 @@ import os
 @csrf_exempt  # Remove this if you're handling CSRF tokens properly
 @require_http_methods(["POST", "DELETE"])  # Only allow POST/DELETE, not GET
 def clear_log(request):
-    log_path = os.path.join(LOG_DIR, LOG_FILE)
     try:
-        # Open in write mode to truncate the file
-        with open(log_path, "w") as f:
-            f.write("")  # Explicitly write empty string (cleaner than just pass)
-            print("Logs cleared successfully")
-        return JsonResponse({
-            "status": "cleared", 
-            "file": LOG_FILE,
-            "message": "Logs cleared successfully"
-        })
-    except FileNotFoundError:
-        # Handle case where log file doesn't exist yet
+        count, _ = IngestionLog.objects.all().delete()
         return JsonResponse({
             "status": "success",
-            "message": "No log file to clear"
+            "message": f"Cleared {count} log entries."
         })
     except Exception as e:
         return JsonResponse({
-            "status": "error", 
-            "error": str(e)
-        }, status=500)
+            "status": "error",
+            "message": str(e)
+        })
+

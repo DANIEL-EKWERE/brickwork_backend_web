@@ -201,12 +201,19 @@ from .models import TaskHistory
 from src import ingestion
 from src import downloader  # Add this import
 import os
+from django.conf import settings
+from .models import IngestionLog
 
 import logging
 logger = logging.getLogger(__name__)
 
-LOG_DIR = "logs"
+# LOG_DIR = "logs"
+# os.makedirs(LOG_DIR, exist_ok=True)
+# Compute absolute project root
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
+
 
 def create_task_entry(self, name):
     return TaskHistory.objects.create(
@@ -216,10 +223,18 @@ def create_task_entry(self, name):
         start_time=timezone.now()
     )
 
+# def log_output(filename, message):
+#     print("Logging called")
+#     # log_file = os.path.join(LOG_DIR, filename)
+#     log_file = settings.LOG_FILE
+#     print(f"Logging to: {os.path.abspath(log_file)}")
+#     print(log_file)
+#     with open(log_file, "a") as f:
+#         f.write(f"[{timezone.now()}] {message}\n")
+#         print("message logged")
+
 def log_output(filename, message):
-    log_file = os.path.join(LOG_DIR, filename)
-    with open(log_file, "a") as f:
-        f.write(f"[{timezone.now()}] {message}\n")
+    IngestionLog.objects.create(message=f"[{timezone.now()}] {message}\n")
 
 # NEW TASK: Download XML files from BrickLink
 @shared_task(bind=True)

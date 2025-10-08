@@ -16,6 +16,14 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
+import dj_database_url
+
+BASE_DIRx = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_DIR = os.path.join(BASE_DIRx, "logs")
+LOG_FILE = os.path.join(LOG_DIR, "ingestion.log")
+
+os.makedirs(LOG_DIR, exist_ok=True)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -26,11 +34,17 @@ SECRET_KEY = 'django-insecure-8&_*0&e2p4txfx^xrde!4t%n8wl7!w%z9^=5&^bob1gv2fn6xf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+# CELERY_BROKER_URL = "redis://localhost:6379/0"
+# CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
+
+CELERY_BROKER_URL = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@shortline.proxy.rlwy.net:14917"
+CELERY_RESULT_BACKEND = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@shortline.proxy.rlwy.net:14917"
+# CELERY_RESULT_EXTENDED = True
+# CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
 # Application definition
@@ -47,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -79,13 +94,16 @@ WSGI_APPLICATION = 'brickwork_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# postgresql://postgres:WjjcnJGpPciOxUvIagSeDZarnkgDhQqz@yamanote.proxy.rlwy.net:18961/railway
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse("postgresql://alpha_trade_user:91XO3T8NOd60sPeyPtDQitHMwDpVZNPL@dpg-ct0um5btq21c73ejdtt0-a.oregon-postgres.render.com/alpha_trade")
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

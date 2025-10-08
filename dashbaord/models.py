@@ -16,3 +16,15 @@ class TaskHistory(models.Model):
 
     def __str__(self):
         return f"{self.script_name} ({self.task_id}) - {self.status}"
+
+
+
+class IngestionLog(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    message = models.TextField()
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"[{self.created_at}] {self.message[:50]}"
