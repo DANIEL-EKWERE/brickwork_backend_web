@@ -1,5 +1,6 @@
 from fileinput import filename
 from django.shortcuts import render
+from django.conf import settings
 # from django.http import JsonResponse
 # from .tasks import run_script, run_all
 # import os
@@ -116,7 +117,8 @@ def home(request):
 
 
 def get_logs(request):
-    log_file = os.path.join(LOG_DIR, LOG_FILE)
+    # log_file = os.path.join(LOG_DIR, LOG_FILE)
+    log_file = settings.LOG_FILE
     print(log_file)
     if os.path.exists(log_file):
         with open(log_file, "r") as f:
@@ -138,7 +140,8 @@ import os
 @csrf_exempt  # Remove this if you're handling CSRF tokens properly
 @require_http_methods(["POST", "DELETE"])  # Only allow POST/DELETE, not GET
 def clear_log(request):
-    log_path = os.path.join(LOG_DIR, LOG_FILE)
+    # log_path = os.path.join(LOG_DIR, LOG_FILE)
+    log_path = settings.LOG_FILE
     try:
         # Open in write mode to truncate the file
         with open(log_path, "w") as f:
