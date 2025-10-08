@@ -101,8 +101,22 @@ WSGI_APPLICATION = 'brickwork_backend.wsgi.application'
 #     }
 # }
 # postgresql://postgres:WjjcnJGpPciOxUvIagSeDZarnkgDhQqz@yamanote.proxy.rlwy.net:18961/railway
+# DATABASES = {
+#     'default': dj_database_url.parse("postgresql://alpha_trade_user:91XO3T8NOd60sPeyPtDQitHMwDpVZNPL@dpg-ct0um5btq21c73ejdtt0-a.oregon-postgres.render.com/alpha_trade")
+# }
+
 DATABASES = {
-    'default': dj_database_url.parse("postgresql://alpha_trade_user:91XO3T8NOd60sPeyPtDQitHMwDpVZNPL@dpg-ct0um5btq21c73ejdtt0-a.oregon-postgres.render.com/alpha_trade")
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME":    "railway",#os.getenv("DB_NAME"),
+        "USER":   "postgres",#os.getenv("DB_USER"),
+        "PASSWORD": "WjjcnJGpPciOxUvIagSeDZarnkgDhQqz",#os.getenv("DB_PASSWORD"),
+        "HOST": "yamanote.proxy.rlwy.net",#os.getenv("DB_HOST"),
+        "PORT": 18961,#os.getenv("DB_PORT", 5432),
+        "OPTIONS": {
+            "sslmode": "require"
+        },
+    }
 }
 
 # Password validation
