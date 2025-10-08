@@ -62,9 +62,9 @@ headers = {
 
 def configure_driver():
     # Always grabs the correct driver for the installed Chrome version
-    # service = Service(ChromeDriverManager().install())
+    service = Service(ChromeDriverManager().install())
     # If you ever want to lock it to Chrome 129 explicitly:
-    service = Service(ChromeDriverManager(driver_version="141.0.7390.54").install())
+    # service = Service(ChromeDriverManager(driver_version="141.0.7390.54").install())
     # service = Service("/usr/local/bin/chromedriver")
 
     # options = Options()
