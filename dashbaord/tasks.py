@@ -205,8 +205,13 @@ import os
 import logging
 logger = logging.getLogger(__name__)
 
-LOG_DIR = "logs"
+# LOG_DIR = "logs"
+# os.makedirs(LOG_DIR, exist_ok=True)
+# Compute absolute project root
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
+
 
 def create_task_entry(self, name):
     return TaskHistory.objects.create(
