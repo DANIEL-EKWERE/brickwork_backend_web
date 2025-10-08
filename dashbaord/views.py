@@ -123,6 +123,7 @@ def get_logs(request):
     if os.path.exists(log_file):
         with open(log_file, "r") as f:
             content = f.read()
+        print(f"[DEBUG] Log content:\n{content}")  # 👈 This prints the full log            
     else:
         content = "No logs available yet."
         print("No logs available yet.")
