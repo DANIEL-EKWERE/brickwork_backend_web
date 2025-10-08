@@ -227,6 +227,7 @@ def log_output(filename, message):
     # log_file = os.path.join(LOG_DIR, filename)
     log_file = settings.LOG_FILE
     print(f"Logging to: {os.path.abspath(log_file)}")
+    print(log_file)
     with open(log_file, "a") as f:
         f.write(f"[{timezone.now()}] {message}\n")
         print("message logged")
