@@ -28,16 +28,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
+'''
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-
 '''
+
 CELERY_BROKER_URL = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@redis.railway.internal:6379"
 CELERY_RESULT_BACKEND = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@redis.railway.internal:6379"
-CELERY_RESULT_EXTENDED = True
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
-'''
+# CELERY_RESULT_EXTENDED = True
+# CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
 
 # Application definition
 
