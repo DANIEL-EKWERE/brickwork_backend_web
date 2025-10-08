@@ -17,6 +17,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+LOG_FILE = os.path.join(LOG_DIR, "ingestion.log")
+
+os.makedirs(LOG_DIR, exist_ok=True)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
