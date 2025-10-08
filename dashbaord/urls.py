@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import auth_view
 
 urlpatterns = [
     path("dashboard/", views.index, name="dashboard"),
@@ -11,11 +12,15 @@ urlpatterns = [
 
     # path("stop/<str:task_id>/", views.stop_task, name="stop_task"),  # 👈 NEW
 
-
+    path("auth/login/", auth_view.login_view, name="login"),
+    path("auth/signup/", auth_view.signup_view, name="signup"),
+    path("logout/", auth_view.logout_view, name="logout"),
     path("", views.home, name="home"),
     path("dashboard/run/<str:task_name>/", views.run_task, name="run_task"),
     path("dashboard/logs/", views.get_logs, name="get_logs"),
     path("dashboard/response/", views.response_data, name="response"),
     path("dashboard/clear-logs/", views.clear_log, name="clear_logs"),  # 👈 NEW
+    path("dashboard/upload-xml/", views.upload_xml_page, name="upload_xml_page"),
+    path("dashboard/upload-xml/submit/", views.upload_xml, name="upload_xml"),
 ]
 

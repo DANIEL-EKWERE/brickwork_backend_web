@@ -1,17 +1,22 @@
+from django.contrib.auth.decorators import login_required
 from fileinput import filename
 from django.shortcuts import render
 from django.conf import settings
 from .models import IngestionLog
+from django.core.files.storage import FileSystemStorage
+from .models import UploadedXML
+import os
+from . import tasks
+from django.http import JsonResponse
 
+
+@login_required(login_url='login')
 def index(request):
     return render(request, "dashboard/index.html")
 
 
 
-import os
-from django.http import JsonResponse
-from . import tasks
-from django.http import JsonResponse
+
 
 LOG_DIR = "logs"
 LOG_FILE = "ingestion.log"
@@ -47,7 +52,7 @@ def home(request):
 
 
 
-
+@login_required(login_url='login')
 def get_logs(request):
     logs = IngestionLog.objects.order_by('-created_at')[:500]
     print
@@ -79,3 +84,22 @@ def clear_log(request):
             "message": str(e)
         })
 
+
+
+@login_required(login_url='login')
+def upload_xml_page(request):
+    """Render the upload XML page."""
+    return render(request, "dashboard/upload_xml.html")
+
+@csrf_exempt
+def upload_xml(request):
+    """Handle XML file upload."""
+    if request.method == "POST" and request.FILES.get("xml_file"):
+        xml_file = request.FILES["xml_file"]
+        if not xml_file.name.lower().endswith(".xml"):
+            return JsonResponse({"error": "Only .xml files are allowed."}, status=400)
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, ""))
+        filename = fs.save(xml_file.name, xml_file)
+        UploadedXML.objects.create(file=f"{filename}")
+        return JsonResponse({"message": f"{xml_file.name} uploaded successfully!"})
+    return JsonResponse({"error": "No file uploaded."}, status=400)
