@@ -1,4 +1,4 @@
-from dashbaord.models import IngestionLog, TaskHistory
+from dashbaord.models import IngestionLog, TaskHistory, UploadedXML
 # #!/usr/bin/env python
 # import os
 # import sys
@@ -103,17 +103,42 @@ def get_db() -> Session:
         db.close()
 
 
-def insert_xml_file_to_db(*, path, klass, columns_mapping):
-    print(f'Path ==========>  {path}')
+# def insert_xml_file_to_db(*, instance=None, path=None, klass, columns_mapping):
+#     print(f'Path ==========>  {path}')
+#     print(f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
+#     log_output("ingestion.log", f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
+#     df = pd.read_xml(path)[columns_mapping.keys()]
+#     df = df.rename(columns=columns_mapping).replace({np.nan: None})
+#     objs = df.to_dict("records")
+#     insert_to_db(klass=klass, columns=df.columns.values, params=objs)
+#     print(f"########## Completed {klass.__tablename__} write {len(objs)} items ###########\n\n")
+#     log_output("ingestion.log", f"########## Completed {klass.__tablename__} write {len(objs)} items ###########\n\n")
+
+def insert_xml_file_to_db(*, instance=None, path=None, klass, columns_mapping):
+    """
+    Insert XML file contents into the database.
+    Either pass a `path` or an `UploadedXML` instance.
+    """
+    if instance:
+        # Retrieve file path from Django FileField
+        path = instance.file.path
+
+    if not path:
+        raise ValueError("Either `instance` or `path` must be provided.")
+
+    print(f"Path ==========> {path}")
     print(f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
     log_output("ingestion.log", f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
+
+    # Read XML data
     df = pd.read_xml(path)[columns_mapping.keys()]
     df = df.rename(columns=columns_mapping).replace({np.nan: None})
+
     objs = df.to_dict("records")
     insert_to_db(klass=klass, columns=df.columns.values, params=objs)
+
     print(f"########## Completed {klass.__tablename__} write {len(objs)} items ###########\n\n")
     log_output("ingestion.log", f"########## Completed {klass.__tablename__} write {len(objs)} items ###########\n\n")
-
 
 def insert_to_db(*, klass, columns, params):
     if isinstance(params, list) and len(params) == 0:
@@ -393,11 +418,13 @@ def main():
     export_inventory_to_json()
 
     """
+
     for _, filename in LINKS_TO_DOWNLOAD:
         restore_from_backup(ROOT_DIR / "data" / (filename + ".bak"))
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR / "data" / "colors.xml"),
+        # path=(ROOT_DIR / "data" / "colors.xml"),
+        instance=UploadedXML.objects.get(file__icontains="colors.xml"),
         klass=Color,
         columns_mapping={
             "COLOR": "color_id",
@@ -407,7 +434,8 @@ def main():
         },
     )
     insert_xml_file_to_db(
-        path=(ROOT_DIR / "data" / "categories.xml"),
+        # path=(ROOT_DIR / "data" / "categories.xml"),
+        instance=UploadedXML.objects.get(file__icontains="categories.xml"),
         klass=Category,
         columns_mapping={
             "CATEGORY": "category_id",
@@ -416,7 +444,8 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR / "data" / "Parts.xml"),
+        # path=(ROOT_DIR / "data" / "Parts.xml"),
+        instance=UploadedXML.objects.get(file__icontains="Parts.xml"),
         klass=Parts,
         columns_mapping={
             "ITEMID": "item_id",
@@ -428,7 +457,8 @@ def main():
 
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR / "data" / "codes.xml"),
+        # path=(ROOT_DIR / "data" / "codes.xml"),
+        instance=UploadedXML.objects.get(file__icontains="codes.xml"),
         klass=Codes,
         columns_mapping={
             "ITEMID": "item_id",
@@ -438,7 +468,8 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR / "data" / "Minifigures.xml"),
+        # path=(ROOT_DIR / "data" / "Minifigures.xml"),
+        instance=UploadedXML.objects.get(file__icontains="Minifigures.xml"),
         klass=MiniFigures,
         columns_mapping={
             "ITEMID": "item_id",
@@ -448,7 +479,8 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR / "data" / "Gear.xml"),
+        # path=(ROOT_DIR / "data" / "Gear.xml"),
+        instance=UploadedXML.objects.get(file__icontains="Gear.xml"),
         klass=Gears,
         columns_mapping={
             "ITEMID": "item_id",
