@@ -23,7 +23,7 @@ from dashbaord.models import IngestionLog, TaskHistory
 # # Setup Django
 # django.setup()
 
-from pathlib import Path
+
 import html
 import json
 from pprint import pprint
@@ -36,7 +36,7 @@ from bs4 import BeautifulSoup
 from sqlalchemy.orm import Session
 
 from .common import upload_object_to_s3
-from .constants import LINKS_TO_DOWNLOAD, ROOT_DIR, ROOT_DIR1
+from .constants import LINKS_TO_DOWNLOAD, ROOT_DIR
 from .crud_util import construct_insert_sql
 from .database import Base, SessionLocal, engine
 from .schema import (
@@ -397,7 +397,7 @@ def main():
         restore_from_backup(ROOT_DIR / "data" / (filename + ".bak"))
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "colors.xml"),
+        path=(ROOT_DIR / "data" / "colors.xml"),
         klass=Color,
         columns_mapping={
             "COLOR": "color_id",
@@ -407,7 +407,7 @@ def main():
         },
     )
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "categories.xml"),
+        path=(ROOT_DIR / "data" / "categories.xml"),
         klass=Category,
         columns_mapping={
             "CATEGORY": "category_id",
@@ -416,7 +416,7 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "Parts.xml"),
+        path=(ROOT_DIR / "data" / "Parts.xml"),
         klass=Parts,
         columns_mapping={
             "ITEMID": "item_id",
@@ -428,7 +428,7 @@ def main():
 
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "codes.xml"),
+        path=(ROOT_DIR / "data" / "codes.xml"),
         klass=Codes,
         columns_mapping={
             "ITEMID": "item_id",
@@ -438,7 +438,7 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "Minifigures.xml"),
+        path=(ROOT_DIR / "data" / "Minifigures.xml"),
         klass=MiniFigures,
         columns_mapping={
             "ITEMID": "item_id",
@@ -448,7 +448,7 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "Gear.xml"),
+        path=(ROOT_DIR / "data" / "Gear.xml"),
         klass=Gears,
         columns_mapping={
             "ITEMID": "item_id",
