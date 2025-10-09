@@ -2,6 +2,8 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
+ROOT_DIR1 = Path("/app")
+
 BASE_DIR = ROOT_DIR / "src"
 
 COOKIES_FILE_NAME = "cookies.json"
