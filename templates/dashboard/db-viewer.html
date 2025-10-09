@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Database Viewer - Brickwork</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000000;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
+}
+
+.navbar {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+}
+
+.navbar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #fafafaff, #ffffffff, #ffffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffffffff;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #ffffffff;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #888;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.table-select {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.table-select:focus {
+  outline: none;
+  border-color: #00d4ff;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.search-box:focus {
+  outline: none;
+  border-color: #00d4ff;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #ffffffff, #ffffffff);
+  border: none;
+  border-radius: 8px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff0066, #ff3366);
+}
+
+.table-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 212, 255, 0.1);
+  z-index: 10;
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #00d4ff;
+  border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.editable {
+  cursor: pointer;
+  position: relative;
+}
+
+.editable:hover {
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.edit-input {
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00d4ff;
+  border-radius: 4px;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #00ff88;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #00d4ff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.icon-btn.delete {
+  color: #ff3366;
+}
+
+.icon-btn.delete:hover {
+  background: rgba(255, 51, 102, 0.2);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.page-info {
+  color: #888;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+  font-size: 1.2rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: rgba(20, 20, 20, 0.98);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 500px;
+  width: 90%;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+  color: #00d4ff;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #00d4ff;
+}
+
+.toast {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  z-index: 2000;
+  animation: slideIn 0.3s ease;
+}
+
+.toast.error {
+  background: rgba(255, 51, 102, 0.95);
+  color: #fff;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(400px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <i class="fas fa-database"></i>
+        Database Viewer
+      </div>
+      <a href="/dashboard/" class="nav-link">← Back to Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <h1>Database Explorer</h1>
+      <p>View and edit your database tables</p>
+    </div>
+
+    <div class="controls">
+      <select class="table-select" id="tableSelect" onchange="loadTable()">
+        <option value="">Select a table...</option>
+        <option value="category">Categories</option>
+        <option value="color">Colors</option>
+        <option value="parts">Parts</option>
+        <option value="minifigures">Minifigures</option>
+        <option value="gears">Gears</option>
+        <option value="parts_with_colors">Parts with Colors</option>
+        <option value="sets">Sets</option>
+        <option value="inventory">Inventory</option>
+      </select>
+
+      <input type="text" class="search-box" id="searchBox" placeholder="Search..." onkeyup="filterTable()">
+
+      <button class="btn" onclick="openAddModal()">
+        <i class="fas fa-plus"></i>
+        Add Row
+      </button>
+
+      <button class="btn" onclick="loadTable()">
+        <i class="fas fa-sync"></i>
+        Refresh
+      </button>
+    </div>
+
+    <div class="table-container">
+      <div class="table-wrapper" id="tableWrapper">
+        <div class="empty-state">
+          <i class="fas fa-table"></i>
+          <p>Select a table to view data</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination" id="pagination" style="display: none;">
+      <button class="btn" onclick="previousPage()">
+        <i class="fas fa-chevron-left"></i>
+        Previous
+      </button>
+      <span class="page-info" id="pageInfo">Page 1 of 1</span>
+      <button class="btn" onclick="nextPage()">
+        Next
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Edit Row</h2>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="editForm"></div>
+      <button class="btn" onclick="saveEdit()" style="width: 100%; margin-top: 1rem;">
+        <i class="fas fa-save"></i>
+        Save Changes
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Modal -->
+  <div class="modal" id="addModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Row</h2>
+        <button class="close-btn" onclick="closeAddModal()">&times;</button>
+      </div>
+      <div id="addForm"></div>
+      <button class="btn" onclick="saveNew()" style="width: 100%; margin-top: 1rem;">
+        <i class="fas fa-plus"></i>
+        Add Row
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentTable = '';
+    let currentData = [];
+    let currentPage = 1;
+    let rowsPerPage = 50;
+    let editingRow = null;
+
+    function showToast(message, isError = false) {
+      const toast = document.createElement('div');
+      toast.className = `toast ${isError ? 'error' : ''}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    async function loadTable() {
+      const tableName = document.getElementById('tableSelect').value;
+      if (!tableName) return;
+
+      currentTable = tableName;
+      const wrapper = document.getElementById('tableWrapper');
+      wrapper.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+
+      try {
+        // Replace with your actual API endpoint
+        const response = await axios.get(`/api/db/table/${tableName}/`);
+        currentData = response.data.rows || [];
+        const columns = response.data.columns || [];
+
+        if (currentData.length === 0) {
+          wrapper.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No data in this table</p></div>';
+          return;
+        }
+
+        renderTable(columns, currentData);
+        showToast(`Loaded ${currentData.length} rows from ${tableName}`);
+
+      } catch (error) {
+        console.error('Error loading table:', error);
+        wrapper.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-triangle"></i><p>Error loading table data</p></div>';
+        showToast('Failed to load table data', true);
+      }
+    }
+
+    function renderTable(columns, data) {
+      const wrapper = document.getElementById('tableWrapper');
+      
+      let html = '<table><thead><tr>';
+      columns.forEach(col => {
+        html += `<th>${col}</th>`;
+      });
+      html += '<th>Actions</th></tr></thead><tbody>';
+
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const pageData = data.slice(start, end);
+
+      pageData.forEach((row, idx) => {
+        html += '<tr>';
+        columns.forEach(col => {
+          html += `<td class="editable" onclick="editCell(this, '${col}', ${start + idx})">${row[col] || ''}</td>`;
+        });
+        html += `
+          <td class="actions">
+            <button class="icon-btn" onclick="editRow(${start + idx})" title="Edit">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="icon-btn delete" onclick="deleteRow(${start + idx})" title="Delete">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>`;
+      });
+
+      html += '</tbody></table>';
+      wrapper.innerHTML = html;
+
+      // Update pagination
+      const totalPages = Math.ceil(data.length / rowsPerPage);
+      document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+      document.getElementById('pagination').style.display = totalPages > 1 ? 'flex' : 'none';
+    }
+
+    function editCell(cell, column, rowIndex) {
+      const currentValue = cell.textContent;
+      cell.innerHTML = `<input type="text" class="edit-input" value="${currentValue}" 
+                               onblur="saveCellEdit(this, '${column}', ${rowIndex})"
+                               onkeydown="if(event.key==='Enter') this.blur()">`;
+      cell.querySelector('input').focus();
+    }
+
+    async function saveCellEdit(input, column, rowIndex) {
+      const newValue = input.value;
+      const row = currentData[rowIndex];
+      
+      try {
+        // Replace with your actual API endpoint
+        await axios.put(`/api/db/table/${currentTable}/row/${row.id}/`, {
+          [column]: newValue
+        });
+        
+        currentData[rowIndex][column] = newValue;
+        input.parentElement.textContent = newValue;
+        showToast('Cell updated successfully');
+      } catch (error) {
+        console.error('Error updating cell:', error);
+        input.parentElement.textContent = row[column];
+        showToast('Failed to update cell', true);
+      }
+    }
+
+    function editRow(rowIndex) {
+      editingRow = rowIndex;
+      const row = currentData[rowIndex];
+      const modal = document.getElementById('editModal');
+      const form = document.getElementById('editForm');
+      
+      let html = '';
+      Object.keys(row).forEach(key => {
+        html += `
+          <div class="form-group">
+            <label>${key}</label>
+            <input type="text" id="edit_${key}" value="${row[key] || ''}" ${key === 'id' ? 'readonly' : ''}>
+          </div>
+        `;
+      });
+      
+      form.innerHTML = html;
+      modal.classList.add('active');
+    }
+
+    async function saveEdit() {
+      const row = currentData[editingRow];
+      const updatedRow = {};
+      
+      Object.keys(row).forEach(key => {
+        const input = document.getElementById(`edit_${key}`);
+        if (input) updatedRow[key] = input.value;
+      });
+
+      try {
+        // Replace with your actual API endpoint
+        await axios.put(`/api/db/table/${currentTable}/row/${row.id}/`, updatedRow);
+        
+        currentData[editingRow] = updatedRow;
+        closeModal();
+        loadTable();
+        showToast('Row updated successfully');
+      } catch (error) {
+        console.error('Error updating row:', error);
+        showToast('Failed to update row', true);
+      }
+    }
+
+    async function deleteRow(rowIndex) {
+      if (!confirm('Are you sure you want to delete this row?')) return;
+
+      const row = currentData[rowIndex];
+      
+      try {
+        // Replace with your actual API endpoint
+        await axios.delete(`/api/db/table/${currentTable}/row/${row.id}/`);
+        
+        currentData.splice(rowIndex, 1);
+        loadTable();
+        showToast('Row deleted successfully');
+      } catch (error) {
+        console.error('Error deleting row:', error);
+        showToast('Failed to delete row', true);
+      }
+    }
+
+    function openAddModal() {
+      if (!currentTable) {
+        showToast('Please select a table first', true);
+        return;
+      }
+
+      const modal = document.getElementById('addModal');
+      const form = document.getElementById('addForm');
+      
+      if (currentData.length > 0) {
+        const sampleRow = currentData[0];
+        let html = '';
+        Object.keys(sampleRow).forEach(key => {
+          if (key !== 'id') {  // Skip ID field for new rows
+            html += `
+              <div class="form-group">
+                <label>${key}</label>
+                <input type="text" id="add_${key}" placeholder="Enter ${key}">
+              </div>
+            `;
+          }
+        });
+        form.innerHTML = html;
+      }
+      
+      modal.classList.add('active');
+    }
+
+    async function saveNew() {
+      const newRow = {};
+      const inputs = document.querySelectorAll('#addForm input');
+      
+      inputs.forEach(input => {
+        const key = input.id.replace('add_', '');
+        newRow[key] = input.value;
+      });
+
+      try {
+        // Replace with your actual API endpoint
+        await axios.post(`/api/db/table/${currentTable}/`, newRow);
+        
+        closeAddModal();
+        loadTable();
+        showToast('Row added successfully');
+      } catch (error) {
+        console.error('Error adding row:', error);
+        showToast('Failed to add row', true);
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('editModal').classList.remove('active');
+    }
+
+    function closeAddModal() {
+      document.getElementById('addModal').classList.remove('active');
+    }
+
+    function filterTable() {
+      const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+      
+      if (!searchTerm) {
+        loadTable();
+        return;
+      }
+
+      const filtered = currentData.filter(row => {
+        return Object.values(row).some(val => 
+          String(val).toLowerCase().includes(searchTerm)
+        );
+      });
+
+      const columns = currentData.length > 0 ? Object.keys(currentData[0]) : [];
+      renderTable(columns, filtered);
+    }
+
+    function nextPage() {
+      const totalPages = Math.ceil(currentData.length / rowsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        const columns = Object.keys(currentData[0]);
+        renderTable(columns, currentData);
+      }
+    }
+
+    function previousPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        const columns = Object.keys(currentData[0]);
+        renderTable(columns, currentData);
+      }
+    }
+  </script>
+</body>
+</html>

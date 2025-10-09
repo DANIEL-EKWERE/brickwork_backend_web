@@ -22,5 +22,10 @@ urlpatterns = [
     path("dashboard/clear-logs/", views.clear_log, name="clear_logs"),  # 👈 NEW
     path("dashboard/upload-xml/", views.upload_xml_page, name="upload_xml_page"),
     path("dashboard/upload-xml/submit/", views.upload_xml, name="upload_xml"),
+    path('dashboard/db-viewer/', views.db_viewer_page, name='db_viewer'),
+    path('api/db/table/<str:table_name>/', views.get_table_data),
+    path('api/db/table/<str:table_name>/row/<int:row_id>/', views.update_row),
+    path('api/db/table/<str:table_name>/row/<int:row_id>/', views.delete_row),
+    path('api/db/table/<str:table_name>/', views.add_row),
 ]
 

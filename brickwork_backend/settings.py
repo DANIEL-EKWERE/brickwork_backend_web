@@ -102,6 +102,19 @@ WSGI_APPLICATION = 'brickwork_backend.wsgi.application'
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
+    
+# }
+
+# settings.py
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     },
+#     'brick_works': {  # Your specific database
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'brick_works.db',  # Your .db file
+#     }
 # }
 # postgresql://postgres:WjjcnJGpPciOxUvIagSeDZarnkgDhQqz@yamanote.proxy.rlwy.net:18961/railway
 # DATABASES = {
@@ -119,6 +132,10 @@ DATABASES = {
         "OPTIONS": {
             "sslmode": "require"
         },
+    },
+    'brick_works': {  # Your specific database
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'brick_works.db',  # Your .db file
     }
 }
 
