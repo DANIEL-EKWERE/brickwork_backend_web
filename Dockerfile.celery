@@ -89,4 +89,4 @@ RUN python manage.py collectstatic --noinput || true
 EXPOSE 8000
 
 # Default command for Django
-CMD ["gunicorn", "brickwork_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# CMD ["gnicorn", "brickwork_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
