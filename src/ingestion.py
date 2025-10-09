@@ -104,6 +104,7 @@ def get_db() -> Session:
 
 
 def insert_xml_file_to_db(*, path, klass, columns_mapping):
+    print(f'Path ==========>  {path}')
     print(f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
     log_output("ingestion.log", f"########## Start -> Write {klass.__tablename__} to Database ###########\n\n")
     df = pd.read_xml(path)[columns_mapping.keys()]
