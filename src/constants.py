@@ -2,7 +2,7 @@ from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-ROOT_DIR1 = Path("/app")
+ROOT_DIR1 = Path("/data")
 
 BASE_DIR = ROOT_DIR / "src"
 
