@@ -1,4 +1,5 @@
 from dashbaord.models import IngestionLog, TaskHistory, UploadedXML
+from pathlib import Path
 # #!/usr/bin/env python
 # import os
 # import sys
@@ -121,7 +122,7 @@ def insert_xml_file_to_db(*, instance=None, path=None, klass, columns_mapping):
     """
     if instance:
         # Retrieve file path from Django FileField
-        path = path(instance.file.path)
+        path = Path(instance.file.path)
 
     if not path:
         raise ValueError("Either `instance` or `path` must be provided.")
