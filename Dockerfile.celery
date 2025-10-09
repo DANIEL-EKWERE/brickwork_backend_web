@@ -75,8 +75,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project code
 COPY . .
 
-# Create log and media dirs for uploads
-RUN mkdir -p /app/logs /app/media && chmod -R 777 /app/logs /app/media
+# Create log and data dirs for uploads
+RUN mkdir -p /app/logs /app/data && chmod -R 777 /app/logs /app/data
 
 # Environment variables for Django
 ENV DJANGO_SETTINGS_MODULE=brickwork_backend.settings
