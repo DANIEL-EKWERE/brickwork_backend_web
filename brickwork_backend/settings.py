@@ -40,12 +40,12 @@ CSRF_TRUSTED_ORIGINS = [
     "https://brickworkbackendweb-production.up.railway.app"
 ]
 
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+# CELERY_BROKER_URL = "redis://localhost:6379/0"
+# CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 
-# CELERY_BROKER_URL = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@shortline.proxy.rlwy.net:14917"
-# CELERY_RESULT_BACKEND = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@shortline.proxy.rlwy.net:14917"
+CELERY_BROKER_URL = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@shortline.proxy.rlwy.net:14917"
+CELERY_RESULT_BACKEND = "redis://default:NkrCESXXeWEaRTnMULCXAGMzwmCzhOBO@shortline.proxy.rlwy.net:14917"
 # CELERY_RESULT_EXTENDED = True
 # CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
@@ -97,30 +97,30 @@ WSGI_APPLICATION = 'brickwork_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # postgresql://postgres:WjjcnJGpPciOxUvIagSeDZarnkgDhQqz@yamanote.proxy.rlwy.net:18961/railway
 # DATABASES = {
 #     'default': dj_database_url.parse("postgresql://alpha_trade_user:91XO3T8NOd60sPeyPtDQitHMwDpVZNPL@dpg-ct0um5btq21c73ejdtt0-a.oregon-postgres.render.com/alpha_trade")
 # }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME":    "railway",#os.getenv("DB_NAME"),
-#         "USER":   "postgres",#os.getenv("DB_USER"),
-#         "PASSWORD": "WjjcnJGpPciOxUvIagSeDZarnkgDhQqz",#os.getenv("DB_PASSWORD"),
-#         "HOST": "yamanote.proxy.rlwy.net",#os.getenv("DB_HOST"),
-#         "PORT": 18961,#os.getenv("DB_PORT", 5432),
-#         "OPTIONS": {
-#             "sslmode": "require"
-#         },
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME":    "railway",#os.getenv("DB_NAME"),
+        "USER":   "postgres",#os.getenv("DB_USER"),
+        "PASSWORD": "WjjcnJGpPciOxUvIagSeDZarnkgDhQqz",#os.getenv("DB_PASSWORD"),
+        "HOST": "yamanote.proxy.rlwy.net",#os.getenv("DB_HOST"),
+        "PORT": 18961,#os.getenv("DB_PORT", 5432),
+        "OPTIONS": {
+            "sslmode": "require"
+        },
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
