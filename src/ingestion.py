@@ -36,7 +36,7 @@ from bs4 import BeautifulSoup
 from sqlalchemy.orm import Session
 
 from .common import upload_object_to_s3
-from .constants import LINKS_TO_DOWNLOAD, ROOT_DIR, ROOT_DIR1
+from .constants import LINKS_TO_DOWNLOAD, ROOT_DIR
 from .crud_util import construct_insert_sql
 from .database import Base, SessionLocal, engine
 from .schema import (
@@ -423,7 +423,7 @@ def main():
         restore_from_backup(ROOT_DIR / "data" / (filename + ".bak"))
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "data" / "colors.xml"),
+        path=( "/app" / "data" / "colors.xml"),
         # instance=UploadedXML.objects.get(file__icontains="colors.xml"),
         klass=Color,
         columns_mapping={
@@ -434,7 +434,7 @@ def main():
         },
     )
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "data" / "categories.xml"),
+        path=( "/app" / "data" / "categories.xml"),
         # instance=UploadedXML.objects.get(file__icontains="categories.xml"),
         klass=Category,
         columns_mapping={
@@ -444,7 +444,7 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "data" / "Parts.xml"),
+        path=( "/app" / "data" / "Parts.xml"),
         # instance=UploadedXML.objects.get(file__icontains="Parts.xml"),
         klass=Parts,
         columns_mapping={
@@ -457,7 +457,7 @@ def main():
 
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "data" / "codes.xml"),
+        path=( "/app" / "data" / "codes.xml"),
         # instance=UploadedXML.objects.get(file__icontains="codes.xml"),
         klass=Codes,
         columns_mapping={
@@ -468,7 +468,7 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "data" / "Minifigures.xml"),
+        path=( "/app" / "data" / "Minifigures.xml"),
         # instance=UploadedXML.objects.get(file__icontains="Minifigures.xml"),
         klass=MiniFigures,
         columns_mapping={
@@ -479,7 +479,7 @@ def main():
     )
 
     insert_xml_file_to_db(
-        path=(ROOT_DIR1 / "data" / "Gear.xml"),
+        path=( "/app" / "data" / "Gear.xml"),
         # instance=UploadedXML.objects.get(file__icontains="Gear.xml"),
         klass=Gears,
         columns_mapping={
