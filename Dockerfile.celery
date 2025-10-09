@@ -20,30 +20,73 @@
 
 # RUN chown -R celery:celery /code
 
-FROM --platform=linux/amd64 python:3.10
 
-USER root
-# Set the working directory to /app
+
+
+
+
+# FROM --platform=linux/amd64 python:3.10
+
+# USER root
+# # Set the working directory to /app
+# WORKDIR /app
+
+# # installing google-chrome-stable
+# RUN apt-get update && apt-get install -y wget unzip && \
+#     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+#     apt install -y ./google-chrome-stable_current_amd64.deb && \
+#     rm google-chrome-stable_current_amd64.deb && \
+#     apt-get clean
+
+# # Copy only the requirements file, to improve build cache
+# COPY requirements.txt ./
+
+# # Install any needed packages specified in requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt
+
+# # Copy the rest of the application
+# COPY .env last_run_at.json ./
+# COPY data/ data/
+# COPY src/ src/
+
+# # Run scheduler.py when the container launches
+# # CMD ["python", "src/scheduler.py"]
+# CMD ["python", "src/downloader.py"]
+
+
+FROM --platform=linux/amd64 python:3.10-slim
+
+# Prevent Python from buffering stdout/stderr
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# installing google-chrome-stable
-RUN apt-get update && apt-get install -y wget unzip && \
+# Install dependencies including Chrome
+RUN apt-get update && apt-get install -y wget unzip curl && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt install -y ./google-chrome-stable_current_amd64.deb && \
     rm google-chrome-stable_current_amd64.deb && \
     apt-get clean
 
-# Copy only the requirements file, to improve build cache
-COPY requirements.txt ./
-
-# Install any needed packages specified in requirements.txt
+# Copy and install Python dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application
-COPY .env last_run_at.json ./
-COPY data/ data/
-COPY src/ src/
+# Copy project code
+COPY . .
 
-# Run scheduler.py when the container launches
-# CMD ["python", "src/scheduler.py"]
-CMD ["python", "src/downloader.py"]
+# Create log and media dirs for uploads
+RUN mkdir -p /app/logs /app/media && chmod -R 777 /app/logs /app/media
+
+# Environment variables for Django
+ENV DJANGO_SETTINGS_MODULE=brickwork_backend.settings
+ENV PYTHONPATH=/app
+
+# Collect static if needed
+RUN python manage.py collectstatic --noinput || true
+
+# Expose port for Django
+EXPOSE 8000
+
+# Default command for Django
+CMD ["gunicorn", "brickwork_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
