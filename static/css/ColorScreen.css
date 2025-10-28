@@ -1,0 +1,211 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Common CSS
+2. Page CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Common CSS
+--------------------------------------*/
+.table-header {
+  background-color: var(--white_a700);
+}
+
+.chocolatebrown {
+  font-family: Inter !important;
+}
+
+.view_four {
+  height: 40px;
+  background-image: url(../public/images/defaultNoData.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: var(--radius-md);
+}
+
+.rowemeraldgreen {
+  margin-left: 16px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  display: flex;
+}
+
+.azureblueone-2 {
+  font-family: Inter !important;
+  align-self: flex-end;
+}
+
+.row00ffzero {
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  display: flex;
+}
+
+.rowview_seven {
+  border-top: 1px solid var(--gray_200);
+}
+
+.contrast_three {
+  height: 72px;
+  width: 72px;
+  object-fit: cover;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+/*-------------------------------------
+  2. Page CSS
+--------------------------------------*/
+.add_new_color {
+  color: var(--gray_900_01) !important;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--blue_gray_50) !important;
+  box-shadow: var(--shadow-xs);
+  height: 32px;
+  min-width: 134px;
+  border-radius: 8px !important;
+  border: 1px solid var(--black_900);
+}
+
+.rowdownload_one-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-6xl);
+  padding: var(--space-3xl) var(--space-8xl);
+  @media only screen and (max-width: 550px) {
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.export_colors {
+  color: var(--white_a700) !important;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--gray_900) !important;
+  height: 32px;
+  min-width: 124px;
+  border-radius: 8px !important;
+}
+
+.row_three-2 {
+  padding: var(--space-md);
+}
+
+.row_two-2 {
+  margin-top: 4px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background-color: var(--white_a700);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.columncolor_one {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tablecolor_one {
+  align-self: stretch;
+  @media only screen and (max-width: 550px) {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+.rowcolor {
+  display: flex;
+  padding: var(--space-3xl);
+}
+
+.name_one {
+  margin-left: 16px;
+  font-family: Inter !important;
+  text-align: left;
+  font-weight: 500 !important;
+}
+
+.rowrgb {
+  margin-left: 270px;
+  display: flex;
+  padding: var(--space-3xl) var(--space-5xl);
+}
+
+.actions_one-1 {
+  color: var(--blue_gray_500) !important;
+  margin-left: 16px;
+  font-family: Inter !important;
+  text-align: left;
+  font-weight: 500 !important;
+}
+
+.view_seven {
+  height: 40px;
+  background-color: var(--red_600);
+  border-radius: var(--radius-md);
+}
+
+.azureblueone {
+  margin-bottom: 24px;
+  margin-left: 32px;
+  font-family: Inter !important;
+  align-self: flex-end;
+}
+
+.rowff0000 {
+  margin-left: 242px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  display: flex;
+}
+
+.view_one {
+  height: 40px;
+  background-color: var(--blue_800);
+  border-radius: var(--radius-md);
+}
+
+.azureblue_one {
+  margin-left: 32px;
+  font-family: Inter !important;
+}
+
+.row0000ff {
+  margin-left: 238px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  display: flex;
+}
+
+.view_two {
+  height: 40px;
+  background-color: var(--teal_300);
+  border-radius: var(--radius-md);
+}
+
+.view_three {
+  height: 40px;
+  background-color: var(--yellow_a700);
+  border-radius: var(--radius-md);
+}
+
+.view_five {
+  height: 40px;
+  background-color: var(--gray_300);
+  border-radius: var(--radius-md);
+}

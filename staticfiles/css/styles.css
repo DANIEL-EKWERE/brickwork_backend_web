@@ -1,0 +1,413 @@
+/*=========== TABLE OF CONTENTS ===========
+1. CSS Variables
+2. Utility CSS
+3. Common CSS
+==========================================*/
+
+/*-------------------------------------
+  1. CSS Variables
+--------------------------------------*/
+:root {
+  /*------Color variables------*/
+  --black_900_3f: #0000003f;
+  --red_600: #de3e3e;
+  --blue_800: #2382ab;
+  --teal_300: #43de95;
+  --yellow_a700: #efd10a;
+  --gray_900_03: #1e1e1e;
+  --white_a700: #ffffff;
+  --black_900: #000000;
+  --gray_200: #e5e8ea;
+  --gray_900: #141414;
+  --light_blue_500: #11a3ed;
+  --gray_900_01: #111616;
+  --blue_gray_50: #eff2f4;
+  --gray_300: #dbe2e5;
+  --blue_gray_500: #607c89;
+  --blue_gray_900: #303030;
+  --gray_800: #474747;
+  --gray_900_02: #212121;
+  --gray_500: #aaaaaa;
+  --blue_gray_300: #9eafba;
+  --blue_gray_900_01: #283338;
+
+  /*------Shadow variables------*/
+  --shadow-xs: 0 4px 4px 0 #0000003f;
+
+  /*------Border radius variables------*/
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+
+  /*------Spacing variables------*/
+  --space-xs: 2px;
+  --space-sm: 4px;
+  --space-md: 6px;
+  --space-lg: 8px;
+  --space-xl: 8px;
+  --space-2xl: 10px;
+  --space-3xl: 12px;
+  --space-4xl: 14px;
+  --space-5xl: 16px;
+  --space-6xl: 20px;
+  --space-7xl: 22px;
+  --space-8xl: 24px;
+  --space-9xl: 28px;
+  --space-10xl: 32px;
+  --space-11xl: 36px;
+  --space-12xl: 40px;
+  --space-13xl: 80px;
+}
+
+/*-------------------------------------
+  2. Utility CSS
+--------------------------------------*/
+
+
+  body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+.flex-col-center-start {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/*-------------------------------------
+  3. Common CSS
+--------------------------------------*/
+.columnsettings {
+  background-color: var(--gray_900);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row_three-1 {
+  margin-bottom: 72px;
+  background-color: var(--white_a700);
+}
+
+.pricing-one {
+  background-color: var(--white_a700);
+  width: 100%;
+}
+
+.headerheaderlog-1 {
+  background-color: var(--gray_900);
+  align-self: stretch;
+  padding: var(--space-3xl);
+  border-bottom: 1px solid var(--gray_200);
+}
+
+.rowbrickworks-2 {
+  padding-left: var(--space-8xl);
+  padding-right: var(--space-8xl);
+  display: flex;
+  align-items: flex-start;
+  @media only screen and (max-width: 550px) {
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.sidebarbrickwor-1 {
+  margin-top: 20px;
+  padding-top: var(--space-5xl);
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  gap: var(--space-5xl);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white_a700);
+  width: 322px;
+  height: 100vh;
+  position: sticky !important;
+  top: 0px;
+  overflow: auto;
+}
+
+.brickworks_one-2 {
+  font-weight: 500 !important;
+}
+
+.brickworks_one-1 {
+  color: var(--black_900) !important;
+  font-weight: 500 !important;
+}
+
+.columnprofile-1 {
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--space-lg);
+  padding: 0px;
+  li {
+    width: 100%;
+  }
+
+  a {
+    gap: var(--space-3xl);
+    color: var(--gray_900_01);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    &:hover {
+      color: var(--white_a700);
+      background-color: var(--gray_800) !important;
+    }
+  }
+
+  span {
+    flex-grow: 1;
+  }
+}
+
+.column-13 {
+  margin-top: 20px;
+  gap: var(--space-3xl);
+  align-self: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.columncolorsone {
+  margin-top: 16px;
+  margin-left: 20px;
+  margin-right: 16px;
+  gap: var(--space-9xl);
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.rowheaderlogo {
+  margin-left: 28px;
+  margin-right: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-6xl);
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.rowadd_new {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.headerlogo_one {
+  height: 22px;
+  width: 132px;
+  object-fit: contain;
+}
+
+.rowfeatures_two {
+  gap: var(--space-10xl);
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 550px) {
+    flex-direction: column;
+  }
+}
+
+.rowfeatures {
+  color: var(--white_a700);
+  margin-bottom: 8px !important;
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  gap: var(--space-11xl);
+  align-self: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.features_two {
+  color: var(--white_a700) !important;
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500 !important;
+}
+
+.download {
+  color: var(--white_a700) !important;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: var(--black_900) !important;
+  height: 40px;
+  min-width: 102px;
+  border-radius: 8px !important;
+}
+
+.search-3 {
+  color: var(--blue_gray_500) !important;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-3xl);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  gap: var(--space-lg);
+  height: 48px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--black_900);
+}
+
+.dhi-group-22 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 46px;
+  background-color: var(--blue_gray_50);
+  border-radius: var(--radius-xs) 0px 0px var(--radius-xs);
+}
+
+.search-4 {
+  height: 24px;
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+  padding-left: var(--space-5xl);
+  border-top-left-radius: var(--radius-xs);
+  border-bottom-left-radius: var(--radius-xs);
+  width: 24px;
+  object-fit: contain;
+}
+
+.vectorzero_one-1 {
+  height: 16px;
+  width: 16px;
+}
+
+.row_two-1 {
+  padding: var(--space-3xl);
+}
+
+.row_one-1 {
+  background-color: var(--white_a700);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.rowsnone {
+  display: flex;
+  justify-content: center;
+}
+
+.rowsn {
+  display: flex;
+  padding: var(--space-3xl) var(--space-5xl);
+}
+
+.color_one {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 500 !important;
+}
+
+.dynamictextedit {
+  margin-left: 16px;
+}
+
+.treeview {
+  display: flex;
+  flex-direction: column;
+}
+
+.treeview-1 {
+  display: flex;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.rowplantname {
+  display: flex;
+  border-top: 1px solid var(--gray_200);
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.row-10 {
+  display: flex;
+  padding: var(--space-8xl) var(--space-5xl);
+  @media only screen and (max-width: 550px) {
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+  }
+}
+
+.a52a2a_one {
+  color: var(--blue_gray_500) !important;
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.manageyour_one {
+  color: var(--blue_gray_500) !important;
+}
+
+.image_two {
+  height: 24px;
+  width: 24px;
+}
+
+.basic {
+  color: var(--white_a700) !important;
+}
+
+.choosetheplan {
+  color: var(--white_a700) !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  @media only screen and (max-width: 1050px) {
+    font-size: 30px !important;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 28px !important;
+  }
+}
+
+.rowcolorsone {
+  align-self: center;
+  flex: 1;
+  display: flex;
+}
+
+.admindashboard {
+  color: var(--gray_900_01) !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  @media only screen and (max-width: 1050px) {
+    font-size: 30px !important;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 28px !important;
+  }
+}
+
+.rowdownload_on {
+  gap: var(--space-3xl);
+  display: flex;
+}
+
+.class-2024cloudsync {
+  color: var(--gray_500) !important;
+}

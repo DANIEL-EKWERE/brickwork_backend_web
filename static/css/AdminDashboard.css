@@ -1,0 +1,211 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Common CSS
+2. Page CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Common CSS
+--------------------------------------*/
+.folder_two {
+  color: var(--gray_900_01);
+  padding-left: var(--space-5xl);
+  padding-right: 34px;
+  font-size: 16px;
+  font-weight: 700;
+  gap: var(--space-3xl);
+  display: flex;
+  background-color: var(--white_a700);
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  height: 58px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+  @media only screen and (max-width: 550px) {
+    padding-right: var(--space-6xl);
+  }
+}
+
+.vector---0 {
+  width: 24px;
+  height: 24px;
+}
+
+.dhi-group-1 {
+  display: none;
+}
+
+.dhi-group-8 {
+  color: var(--gray_900_01);
+  background-color: var(--white_a700);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.dhi-group-9 {
+  white-space: pre-wrap;
+  color: var(--gray_900_01);
+  background-color: var(--light_blue_500);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+/*-------------------------------------
+  2. Page CSS
+--------------------------------------*/
+.rowbrickworks {
+  gap: var(--space-6xl);
+  background-color: var(--white_a700);
+  display: flex;
+  align-items: flex-start;
+  padding: var(--space-6xl);
+}
+
+.sidebarbrickwor {
+  padding-top: var(--space-5xl);
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  gap: var(--space-8xl);
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white_a700);
+  width: 322px;
+  height: 100vh;
+  position: sticky !important;
+  top: 0px;
+  overflow: auto;
+}
+
+.columnprofile {
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--space-lg);
+  padding: 0px;
+  li {
+    width: 100%;
+  }
+
+  a {
+    gap: var(--space-3xl);
+    color: var(--gray_900_01);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-xs);
+    &:hover {
+      background-color: var(--white_a700) !important;
+    }
+  }
+
+  span {
+    flex-grow: 1;
+  }
+}
+
+.columnadmindash {
+  margin-top: 10px;
+  gap: 26px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.columnadmindash-1 {
+  gap: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chipviewvector {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--space-3xl);
+  column-gap: 10px;
+}
+
+.vector_zero_one {
+  color: var(--gray_900_01);
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-6xl);
+  font-size: 16px;
+  font-weight: 700;
+  gap: var(--space-3xl);
+  display: flex;
+  background-color: var(--white_a700);
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  height: 58px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.settings_five {
+  color: var(--gray_900_01);
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-8xl);
+  font-size: 16px;
+  font-weight: 700;
+  gap: var(--space-3xl);
+  display: flex;
+  background-color: var(--white_a700);
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  height: 58px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+  @media only screen and (max-width: 550px) {
+    padding-right: var(--space-6xl);
+  }
+}
+
+.search_two {
+  color: var(--gray_900_01);
+  padding-left: var(--space-5xl);
+  padding-right: 34px;
+  font-size: 16px;
+  font-weight: 700;
+  gap: var(--space-3xl);
+  display: flex;
+  background-color: var(--white_a700);
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  height: 74px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+  @media only screen and (max-width: 550px) {
+    padding-right: var(--space-6xl);
+  }
+}
+
+.thumbsup_seven {
+  color: var(--gray_900_01);
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  text-align: left;
+  font-size: 16px;
+  font-weight: 700;
+  gap: var(--space-3xl);
+  display: flex;
+  background-color: var(--white_a700);
+  line-height: 20px;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  height: 74px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.description-13 {
+  line-height: 24px;
+}

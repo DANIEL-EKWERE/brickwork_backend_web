@@ -1,0 +1,222 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Button CSS
+2. Input CSS
+3. Text CSS
+4. Heading CSS
+5. Table CSS
+6. Container CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Button CSS
+--------------------------------------*/
+.ui.button.round {
+  border-radius: var(--radius-xs);
+}
+
+.ui.button.size-2xl {
+  height: 48px;
+  padding-left: var(--space-6xl);
+  padding-right: var(--space-6xl);
+  font-size: 16px;
+}
+
+.ui.button.size-lg {
+  height: 32px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  font-size: 14px;
+}
+
+.ui.button.size-xl {
+  height: 40px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  font-size: 14px;
+}
+
+.ui.button.fill.gray_900 {
+  background-color: var(--gray_900);
+  color: var(--white_a700);
+}
+
+.ui.button.fill.black_900 {
+  background-color: var(--black_900);
+  color: var(--white_a700);
+}
+
+.ui.button.fill.light_blue_500 {
+  background-color: var(--light_blue_500);
+  color: var(--white_a700);
+}
+
+.ui.button.fill.blue_gray_900 {
+  background-color: var(--blue_gray_900);
+  color: var(--white_a700);
+}
+
+.ui.button.fill.blue_gray_50 {
+  background-color: var(--blue_gray_50);
+  color: var(--gray_900_01);
+}
+
+.ui.button.fill.gray_900_01 {
+  background-color: var(--gray_900_01);
+  color: var(--white_a700);
+}
+
+.ui.button {
+  text-align: center;
+  display: flex;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/*-------------------------------------
+  2. Input CSS
+--------------------------------------*/
+.ui.input.size-3xl {
+  height: 56px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  font-size: 16px;
+}
+
+.ui.input.size-2xl {
+  height: 48px;
+  padding-left: var(--space-4xl);
+  padding-right: var(--space-4xl);
+  font-size: 16px;
+}
+
+.ui.input.fill.blue_gray_900 {
+  background-color: var(--blue_gray_900);
+}
+
+.ui.input.fill.blue_gray_900_01 {
+  background-color: var(--blue_gray_900_01);
+  color: var(--blue_gray_300);
+}
+
+.ui.input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: text;
+  font-size: 16px;
+}
+
+/*-------------------------------------
+  3. Text CSS
+--------------------------------------*/
+.ui.text.size-textxl {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.ui.text.size-text2xl {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.ui.text {
+  color: var(--gray_900_01);
+  font-family: Manrope;
+}
+
+/*-------------------------------------
+  4. Heading CSS
+--------------------------------------*/
+.ui.heading.size-textlg {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ui.heading.size-headingxl {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ui.heading.size-heading2xl {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ui.heading.size-heading3xl {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ui.heading.size-heading5xl {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.ui.heading.size-heading6xl {
+  font-size: 28px;
+  font-weight: 700;
+  @media only screen and (max-width: 1050px) {
+    font-size: 26px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 24px;
+  }
+}
+
+.ui.heading.size-heading7xl {
+  font-size: 36px;
+  font-weight: 800;
+  @media only screen and (max-width: 1050px) {
+    font-size: 34px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 32px;
+  }
+}
+
+.ui.heading.size-heading8xl {
+  font-size: 48px;
+  font-weight: 800;
+  @media only screen and (max-width: 1050px) {
+    font-size: 44px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    font-size: 38px;
+  }
+}
+
+.ui.heading {
+  color: var(--blue_gray_500);
+  font-family: Inter;
+}
+
+/*-------------------------------------
+  5. Table CSS
+--------------------------------------*/
+.ui.table.size-xs tbody td {
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+/*-------------------------------------
+  6. Container CSS
+--------------------------------------*/
+.container-xs {
+  max-width: 928px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container-sm {
+  max-width: 960px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}

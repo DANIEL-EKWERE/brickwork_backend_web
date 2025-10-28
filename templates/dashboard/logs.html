@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ script_name }} Logs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background: #111; color: #ddd; font-family: monospace; }
+        .log-container { max-height: 80vh; overflow-y: auto; padding: 10px; border: 1px solid #444; background: #000; }
+        .INFO { color: #00ff00; }
+        .WARNING { color: #ffaa00; }
+        .ERROR { color: #ff4444; font-weight: bold; }
+        .search-box { margin-bottom: 10px; }
+    </style>
+</head>
+<body class="container mt-4">
+
+    <h2>{{ script_name }} Logs</h2>
+    <input id="searchInput" class="form-control search-box" placeholder="Search logs...">
+
+    <div id="logContainer" class="log-container">
+        {% for line in logs %}
+            {% if "ERROR" in line %}
+                <div class="ERROR">{{ line }}</div>
+            {% elif "WARNING" in line %}
+                <div class="WARNING">{{ line }}</div>
+            {% elif "INFO" in line %}
+                <div class="INFO">{{ line }}</div>
+            {% else %}
+                <div>{{ line }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <script>
+        // Auto-scroll to bottom
+        const logContainer = document.getElementById("logContainer");
+        logContainer.scrollTop = logContainer.scrollHeight;
+
+        // Auto-refresh every 5s
+        setInterval(() => {
+            fetch(window.location.href)
+              .then(res => res.text())
+              .then(html => {
+                  document.open();
+                  document.write(html);
+                  document.close();
+              });
+        }, 5000);
+
+        // Search filter
+        document.getElementById("searchInput").addEventListener("keyup", function() {
+            let filter = this.value.toLowerCase();
+            let lines = document.querySelectorAll("#logContainer div");
+            lines.forEach(line => {
+                line.style.display = line.textContent.toLowerCase().includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+
+</body>
+</html>

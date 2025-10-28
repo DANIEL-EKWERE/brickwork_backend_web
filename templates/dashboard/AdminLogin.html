@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Brickworks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <img
+      alt="Logo"
+      src="{% static 'images/img_header_logo.png' %}"
+      style="width: 0px; height: 0px; display: none"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/AdminLogin.css' %}" />
+  </head>
+  <body>
+    <div class="admin-login">
+      <div class="columnvectorzer">
+        <div class="rowvectorzero">
+          <img src="{% static 'images/img_vector_0_white_a700.svg' %}" alt="Vectorzero" class="vectorzero_one-1" />
+          <h1 class="basic ui heading size-heading3xl">BrickWorks</h1>
+        </div>
+        <div class="columnadminlogi">
+          <h2 class="basic ui heading size-heading6xl">Admin Login</h2>
+          <div class="columnusername">
+            <label class="username ui input blue_gray_900_01 size-3xl fill">
+              <input name="userName" placeholder="Username  or Email" type="email" />
+            </label>
+            <label class="password ui input blue_gray_900_01 size-3xl fill">
+              <input name="password" placeholder="Password" type="password" />
+            </label>
+            <a href="#" class="forgotpassword-link">
+              <p class="forgotpassword ui text size-textxl">Forgot Password?</p>
+            </a>
+            <button class="login ui button light_blue_500 size-2xl fill round">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

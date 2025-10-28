@@ -1,0 +1,290 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Brickworks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <img
+      alt="Logo"
+      src=" "
+      style="width: 0px; height: 0px; display: none"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Features.css' %}" />
+  </head>
+  <body>
+    <div class="features-one" style="background-color: black;">
+      <header class="headerheaderlog">
+        <div class="rowheaderlogo">
+          <img src="{% static 'images/img_header_logo.png' %}" alt="Headerlogo" class="headerlogo_one" />
+          <div class="rowfeatures_two">
+            <ul class="rowfeatures">
+              <li>
+                <a href="{% url 'home' %}">
+                  <button class="download ui button size-xl fill round" >Features</button>
+                </a>
+              </li>
+              <li>
+                <a href="" style="padding-top: 16px;">
+                  <p class="features_two ui text size-textxl">Community</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'pricing' %}" style="padding-top: 16px;">
+                  <p class="features_two ui text size-textxl">Pricing</p>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'blog' %}" style="padding-top: 16px;">
+                  <p class="features_two ui text size-textxl">Blog</p>
+                </a>
+              </li>
+            </ul>
+            <a href="{% url 'dashboard' %}">
+              <p class="features_two ui text size-textxl">Dashboard</p>
+            </a>
+          </div>
+        </div>
+      </header>
+      <div class="newscreenbody">
+        <div class="column">
+          <div class="rowwelcometo">
+            <img src="{% static 'images/img_depth_6_frame_0.png' %}" alt="Image" class="image_six" />
+            <div class="columnwelcometo">
+              <div class="columnwelcometo-1">
+                <h1 class="welcometo_one ui heading size-heading8xl">Welcome to BrickWorks</h1>
+                <p class="description ui text size-text2xl">
+                  The ultimate inventory management tool for BrickLink sellers and collectors. Save time, reduce errors,
+                  stay informed, and grow your store with our intuitive mobile app.
+                </p>
+              </div>
+              <div class="rowdownload_on">
+                <button class="download_on_the ui button size-2xl fill round">Download on the App Store</button>
+                <button class="get_it_on ui button size-2xl fill round">Get it on Google Play</button>
+              </div>
+            </div>
+          </div>
+          <div class="columnwhychoose">
+            <div class="columnwhychoose-1">
+              <h2 class="whychoose_one ui heading size-heading7xl">Why Choose BrickWorks?</h2>
+              <p class="description_one ui text size-text2xl">
+                BrickWorks offers a range of features designed to streamline your inventory management and enhance your
+                selling experience.
+              </p>
+            </div>
+            <div class="features_three">
+              <div class="column-9">
+                <img src="{% static 'images/img_depth_8_frame_0.png' %}" alt="Image" class="image" />
+                <div>
+                  <div class="rowefficient">
+                    <p class="features_two ui text size-text2xl">Efficient Inventory Management</p>
+                  </div>
+                  <p class="easilymanage ui text size-textxl">
+                    Easily manage your inventory with our user-friendly interface, designed for both sellers and
+                    collectors.
+                  </p>
+                </div>
+              </div>
+              <div class="column-10">
+                <img src="{% static 'images/img_depth_8_frame_0_168x300.png' %}" alt="Image" class="image" />
+                <div>
+                  <div class="rowefficient">
+                    <p class="features_two ui text size-text2xl">Real-time Tracking</p>
+                  </div>
+                  <p class="easilymanage ui text size-textxl">
+                    Keep track of your inventory in real-time, ensuring accuracy and preventing errors.
+                  </p>
+                </div>
+              </div>
+              <div class="column-11">
+                <img src="{% static 'images/img_depth_8_frame_0_170x300.png' %}" alt="Image" class="image" />
+                <div>
+                  <div class="rowefficient">
+                    <p class="features_two ui text size-text2xl">Sales Analytics</p>
+                  </div>
+                  <p class="easilymanage ui text size-textxl">
+                    Gain insights into your sales performance with detailed analytics and reporting tools.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columnkeyfeatur container-sm">
+          <h2 class="keyfeatures_one ui heading size-heading5xl">Key Features</h2>
+          <div class="columnpowerful">
+            <h3 class="powerful_one ui heading size-heading7xl">Powerful Features to Streamline Your Inventory</h3>
+            <p class="description_two ui text size-text2xl">
+              BrickWorks offers a comprehensive suite of features designed to simplify inventory management for
+              BrickLink sellers and collectors. From real-time tracking to AI-powered item recognition, we have you
+              covered.
+            </p>
+          </div>
+          <div class="features_four">
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_share.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <h4 class="realtime ui heading size-heading2xl">Real-Time Inventory Management</h4>
+                <p class="description-1 ui text size-textxl">
+                  Keep your inventory up-to-date in real-time. Track quantities, locations, and conditions of your
+                  bricks with precision.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_share.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <h5 class="realtime ui heading size-heading2xl">Advanced Search & Filtering</h5>
+                <p class="description-1 ui text size-textxl">
+                  Quickly find specific items with advanced search and filtering options. Sort by color, part number,
+                  quantity, and more.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_share.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <h6 class="realtime ui heading size-heading2xl">Mobile-First Design</h6>
+                <p class="description-1 ui text size-textxl">
+                  Designed for mobile devices, BrickWorks allows you to manage your inventory on the go, anytime,
+                  anywhere.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_barcode.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <p class="realtime ui heading size-heading2xl">Barcode Scanning</p>
+                <p class="description-1 ui text size-textxl">
+                  Easily add items to your inventory by scanning barcodes. Save time and ensure accuracy with our
+                  integrated scanner.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_vector_0.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <p class="realtime ui heading size-heading2xl">Smart Notifications</p>
+                <p class="description-1 ui text size-textxl">
+                  Receive timely notifications about low stock, new orders, and other important updates to stay on top
+                  of your inventory.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_vector_0_gray_900_01.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <p class="realtime ui heading size-heading2xl">Analytics Dashboard</p>
+                <p class="description-1 ui text size-textxl">
+                  Gain valuable insights into your inventory with our comprehensive analytics dashboard. Track sales,
+                  inventory value, and trends.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_share.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <p class="realtime ui heading size-heading2xl">Order Management</p>
+                <p class="description-1 ui text size-textxl">
+                  Manage your orders efficiently from start to finish. Track order status, shipping information, and
+                  customer details.
+                </p>
+              </div>
+            </div>
+            <div class="column-1">
+              <div class="row-1">
+                <img src="{% static 'images/img_share.svg' %}" alt="Image" class="image_two" />
+              </div>
+              <div class="columnrealtime">
+                <p class="realtime ui heading size-heading2xl">AI Item Recognition (Bricognize)</p>
+                <p class="description-1 ui text size-textxl">
+                  Identify items using our AI-powered Bricognize feature. Simply take a picture, and let our AI
+                  recognize the brick.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="columnreadytota">
+            <div class="columnreadytota-1">
+              <h3 class="whychoose_one ui heading size-heading7xl">Ready to take control of your inventory?</h3>
+              <p class="jointhousands ui text size-text2xl">
+                Join thousands of users who are already benefiting from BrickWorks&#39; powerful features.
+              </p>
+            </div>
+            <div class="row">
+              <button class="download_on_the ui button size-2xl fill round">Download on the App Store</button>
+              <button class="get_it_on ui button size-2xl fill round">Get it on Google Play</button>
+            </div>
+          </div>
+        </div>
+        <div class="row_four">
+          <div class="columnvector">
+            <div class="row_two">
+              <div class="row_one">
+                <div class="rowvector">
+                  <!-- <img src="public/images/img_vector.svg" alt="Vector" class="vector-3" />
+                  <img src="public/images/img_vector_blue_gray_500.svg" alt="Vector" class="vector_three" />
+                  <img src="public/images/img_vector_blue_gray_500_10x1.svg" alt="Vector" class="vector-3" />
+                  <img src="public/images/img_vector_blue_gray_500_8x6.svg" alt="Vector" class="vector_seven" />
+                  <img src="public/images/img_vector_8x6.svg" alt="Vector" class="vector_seven" />
+                  <img src="public/images/img_vector_1.svg" alt="Vector Eleven" class="vector_seven" />
+                  <img
+                    src="public/images/img_vector_blue_gray_500_12x8.svg"
+                    alt="Vector Thirteen"
+                    class="vector_thirteen"
+                  />
+                  <img src="public/images/img_vector.svg" alt="Vector Fifteen" class="vector-3" />
+                  <img src="public/images/img_vector_blue_gray_500_8x8.svg" alt="Vector" class="vector-8" />
+                  <div class="vector_nineteen"></div>
+                  <img src="public/images/img_vector_blue_gray_500_10x1.svg" alt="Vector" class="vector-3" />
+                  <img src="public/images/img_vector_1.svg" alt="Vector" class="vector_seven" />
+                  <img src="public/images/img_vector_blue_gray_500_12x8.svg" alt="Vector" class="vector_thirteen" /> -->
+                  <p style="color: #617D8A;">Privacy Policy</p>
+                </div>
+                <!-- <img src="public/images/img_depth_6_frame_1.svg" alt="Image" class="image_one" /> -->
+              </div>
+              <div class="rowvector">
+                <!-- <img src="public/images/img_vector_blue_gray_500_12x10.svg" alt="Vector" class="vector" />
+                <img src="public/images/img_vector_blue_gray_500_8x8.svg" alt="Vector" class="vector-1" />
+                <img src="public/images/img_vector_2.svg" alt="Vector" class="vector-2" />
+                <img src="public/images/img_vector_blue_gray_500_10x4.svg" alt="Vector" class="vector-3" />
+                <img src="public/images/img_vector_8x6.svg" alt="Vector" class="vector-2" />
+                <img src="public/images/img_vector_1.svg" alt="Vector" class="vector-2" />
+                <img src="public/images/img_vector_blue_gray_500_10x4.svg" alt="Vector" class="vector-3" />
+                <img src="public/images/img_vector_12x8.svg" alt="Vector Fortyone" class="vector_fortyone" />
+                <img src="public/images/img_vector_3.svg" alt="Vector" class="vector-7" /> -->
+                <p style="color: #617D8A;">Contact Us</p>
+              </div>
+            </div>
+            <div class="row_three">
+              <img src="{% static 'images/img_depth_8_frame_0_blue_gray_500.svg' %}" alt="Image" class="image_two" />
+              <img src="{% static 'images/img_depth_8_frame_0_blue_gray_500_24x24.svg' %}" alt="Image" class="image_two" />
+              <img src="{% static 'images/img_depth_8_frame_0_24x24.svg' %}" alt="Image" class="image_two" />
+            </div>
+            <!-- <img src="public/images/img_depth_5_frame_2.svg" alt="Image" class="image_five" /> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

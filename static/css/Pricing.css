@@ -1,0 +1,241 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Common CSS
+2. Page CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Common CSS
+--------------------------------------*/
+.columnget {
+  gap: var(--space-3xl);
+  display: flex;
+  background-color: var(--gray_900_02);
+  width: 302px;
+  flex-direction: column;
+  padding: var(--space-7xl);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray_800);
+  @media only screen and (max-width: 550px) {
+    padding: var(--space-6xl);
+  }
+}
+
+.columnbasic {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rowfree {
+  margin-top: -4px;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.free {
+  color: var(--white_a700) !important;
+  letter-spacing: -1px;
+}
+
+.month {
+  color: var(--white_a700) !important;
+  margin-bottom: 8px;
+  align-self: flex-end;
+}
+
+.get_started {
+  color: var(--white_a700) !important;
+  padding-left: 34px;
+  padding-right: 34px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: var(--blue_gray_900) !important;
+  align-self: stretch;
+  height: 40px;
+  border-radius: 12px !important;
+  @media only screen and (max-width: 550px) {
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.column5gb {
+  margin-bottom: 6px;
+  gap: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.class-5gb_storage_one {
+  height: 20px;
+  width: 20px;
+}
+
+.filesize {
+  color: var(--white_a700) !important;
+  font-size: 13px !important;
+}
+
+/*-------------------------------------
+  2. Page CSS
+--------------------------------------*/
+.column-12 {
+  margin-top: 20px;
+  padding-top: var(--space-4xl);
+  padding-bottom: var(--space-4xl);
+  gap: var(--space-4xl);
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.columnchoosethe {
+  margin-left: 16px;
+  margin-right: 16px;
+  gap: var(--space-5xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.pricing_three {
+  gap: var(--space-2xl);
+  display: flex;
+  align-self: stretch;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.rowfrequently {
+  display: flex;
+  padding: var(--space-sm) var(--space-5xl);
+}
+
+.frequently_one {
+  color: var(--white_a700) !important;
+  margin-top: 12px;
+}
+
+.expandablelistw {
+  color: var(--white_a700);
+  margin-left: 16px;
+  margin-right: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  gap: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.columnwhatis {
+  color: var(--white_a700);
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--gray_900);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  cursor: pointer;
+  padding: var(--space-11xl) var(--space-5xl);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gray_800);
+  @media only screen and (max-width: 550px) {
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    left: auto;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1;
+    background-image: url(../public/images/img_checkmark.svg);
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+  }
+}
+
+.rowwhatis {
+  margin-top: -58px;
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-6xl);
+}
+
+.whatis_one {
+  color: var(--white_a700) !important;
+  font-weight: 500 !important;
+}
+
+.cloudsyncisa {
+  color: var(--gray_500) !important;
+  margin-top: 8px;
+  z-index: 1;
+  position: relative;
+}
+
+.footertermsof {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  gap: var(--space-8xl);
+  display: flex;
+  flex-direction: column;
+  width: 72%;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.rowtermsof {
+  padding-left: 18px;
+  padding-right: 18px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-6xl);
+}
+
+.contactus_one-link {
+  margin-right: 18px;
+  @media only screen and (max-width: 1050px) {
+    margin-right: 0px;
+  }
+}
+
+.row2024cloudsyn {
+  padding-left: 56px;
+  padding-right: 56px;
+  display: flex;
+  justify-content: center;
+  @media only screen and (max-width: 1050px) {
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}

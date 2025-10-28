@@ -1,0 +1,201 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Brickworks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <img
+      alt="Logo"
+      src="{% static 'images/img_header_logo.png' %}"
+      style="width: 0px; height: 0px; display: none"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Pricing.css' %}" />
+  </head>
+  <body>
+    <div class="pricing-one">
+      <div class="columnsettings">
+        <header class="headerheaderlog-1">
+          <div class="rowheaderlogo">
+            <img src="{% static 'images/img_header_logo.png' %}" alt="Headerlogo" class="headerlogo_one" />
+            <div class="rowfeatures_two">
+              <ul class="rowfeatures">
+                <li>
+                  <a href="{% url 'home' %}" style="padding-top: 16px;">
+                    <p class="features_two ui text size-textxl">Features</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="" style="padding-top: 16px;">
+                    <p class="features_two ui text size-textxl">Community</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'pricing' %}" >
+                    <button class="download ui button size-xl fill round">Pricing</button>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'blog' %}" style="padding-top: 16px;">
+                    <p class="features_two ui text size-textxl">Blog</p>
+                  </a>
+                </li>
+              </ul>
+              <a href="{% url 'dashboard' %}">
+                <p class="features_two ui text size-textxl">Dashboard</p>
+              </a>
+            </div>
+          </div>
+        </header>
+        <div class="column-12 container-sm">
+          <div class="columnchoosethe">
+            <h1 class="choosetheplan ui heading size-heading7xl">Choose the plan that&#39;s right for you</h1>
+            <div class="pricing_three">
+              <div class="columnget">
+                <div class="columnbasic">
+                  <h2 class="basic ui heading size-heading2xl">Basic</h2>
+                  <div class="rowfree">
+                    <h3 class="free ui heading size-heading7xl">Free</h3>
+                    <h4 class="month ui heading size-heading2xl">/month</h4>
+                  </div>
+                </div>
+                <button class="get_started ui button size-xl fill">Get Started</button>
+                <div class="column5gb">
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="5gb Storage" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">5GB Storage</p>
+                  </div>
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="Basic Features" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">Basic Features</p>
+                  </div>
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="Community" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">Community Support</p>
+                  </div>
+                </div>
+              </div>
+              <div class="columnget">
+                <div class="columnbasic">
+                  <h5 class="basic ui heading size-heading2xl">Basic</h5>
+                  <div class="rowfree">
+                    <h6 class="free ui heading size-heading7xl">$9.99</h6>
+                    <p class="month ui heading size-heading2xl">/month</p>
+                  </div>
+                </div>
+                <button class="get_started ui button size-xl fill">Choose Plan</button>
+                <div class="column5gb">
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="5gb Storage" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">50GB Storage</p>
+                  </div>
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="Basic Features" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">Advanced Features</p>
+                  </div>
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="Community" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">Priority Support</p>
+                  </div>
+                </div>
+              </div>
+              <div class="columnget">
+                <div class="columnbasic">
+                  <p class="basic ui heading size-heading2xl">Enterprise</p>
+                  <div class="rowfree">
+                    <h3 class="free ui heading size-heading7xl">$29.99</h3>
+                    <p class="month ui heading size-heading2xl">/month</p>
+                  </div>
+                </div>
+                <button class="get_started ui button size-xl fill">Contact Us</button>
+                <div class="column5gb">
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="5gb Storage" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">Unlimited Storage</p>
+                  </div>
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="Basic Features" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">All Features</p>
+                  </div>
+                  <div class="rowdownload_on">
+                    <img src="{% static 'images/img_checkmark.svg' %}" alt="Community" class="class-5gb_storage_one" />
+                    <p class="filesize ui text size-textxl">Dedicated Support</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rowfrequently">
+            <h6 class="frequently_one ui heading size-heading5xl">Frequently Asked Questions</h6>
+          </div>
+          <div class="expandablelistw">
+            <details open>
+              <summary class="columnwhatis">
+                <div class="rowwhatis">
+                  <p class="whatis_one ui text size-textxl">What is CloudSync?</p>
+                </div>
+                <p class="cloudsyncisa ui text size-textxl">
+                  CloudSync is a cloud storage service that allows you to securely store and access your files from any
+                  device.
+                </p>
+              </summary>
+              <p class="ui text">Dummy Content</p>
+            </details>
+            <details>
+              <summary class="columnwhatis">
+                <div class="rowwhatis">
+                  <p class="whatis_one ui text size-textxl">How secure is my data?</p>
+                </div>
+                <p class="cloudsyncisa ui text size-textxl">
+                  CloudSync is a cloud storage service that allows you to securely store and access your files from any
+                  device.
+                </p>
+              </summary>
+              <p class="ui text">Dummy Content</p>
+            </details>
+            <details>
+              <summary class="columnwhatis">
+                <div class="rowwhatis">
+                  <p class="whatis_one ui text size-textxl">Can I upgrade or downgrade my plan?</p>
+                </div>
+                <p class="cloudsyncisa ui text size-textxl">
+                  CloudSync is a cloud storage service that allows you to securely store and access your files from any
+                  device.
+                </p>
+              </summary>
+              <p class="ui text">Dummy Content</p>
+            </details>
+          </div>
+        </div>
+        <footer class="footertermsof">
+          <ul class="rowtermsof">
+            <li>
+              <a href="#">
+                <p class="class-2024cloudsync ui text size-text2xl">Terms of Service</p>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <p class="class-2024cloudsync ui text size-text2xl">Privacy Policy</p>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="contactus_one-link">
+                <p class="class-2024cloudsync ui text size-text2xl">Contact Us</p>
+              </a>
+            </li>
+          </ul>
+          <div class="row2024cloudsyn">
+            <p class="class-2024cloudsync ui text size-text2xl">@2024 CloudSync. All rights reserved.</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

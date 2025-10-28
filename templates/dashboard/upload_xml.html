@@ -1,0 +1,751 @@
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload XML | Brickworks Command Center</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background: #0e0e0e;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .upload-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      width: 400px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+    .upload-card h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffffff, #ffffffff, #ffffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .upload-area {
+      border: 2px dashed rgba(0, 212, 255, 0.5);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      color: #00d4ff;
+      transition: all 0.3s ease;
+    }
+    .upload-area:hover {
+      background: rgba(0, 212, 255, 0.05);
+    }
+    .upload-area.dragover {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: #ffffffff;
+    }
+    input[type="file"] { display: none; }
+
+    .file-info {
+      color: #ffffffff;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .progress-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 8px;
+      background: linear-gradient(90deg, #ffffffff, #b9b9b9ff);
+      transition: width 0.3s ease;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ffffffff, #ffffffff);
+      border: none;
+      color: #000;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+    }
+    .message {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    a.back-link {
+      margin-top: 2rem;
+      color: #ffffffff;
+      text-decoration: none;
+    }
+    a.back-link:hover {
+      color: #00ff88;
+    }
+  </style>
+</head>
+<body>
+  <div class="upload-card">
+    <h1><i class="fas fa-file-upload"></i> Upload XML</h1>
+    <form id="xmlForm" enctype="multipart/form-data">
+      <label for="xmlFile" class="upload-area" id="dropZone">
+        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+        <p id="dropText">Drag & drop your XML file here, or click to select.</p>
+      </label>
+      <input type="file" id="xmlFile" name="xml_file" accept=".xml">
+      <div class="file-info" id="fileInfo"></div>
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <button type="submit">Upload</button>
+    </form>
+    <div class="message" id="uploadMessage"></div>
+    <a href="{% url 'dashboard' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('xmlFile');
+    const dropText = document.getElementById('dropText');
+    const fileInfo = document.getElementById('fileInfo');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const uploadMessage = document.getElementById('uploadMessage');
+    const form = document.getElementById('xmlForm');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', e => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      fileInput.files = e.dataTransfer.files;
+      displayFileInfo(fileInput.files[0]);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length > 0) {
+        displayFileInfo(fileInput.files[0]);
+      }
+    });
+
+    function displayFileInfo(file) {
+      if (file) {
+        dropText.innerHTML = `✅ File ready: <strong>${file.name}</strong>`;
+        fileInfo.textContent = `Size: ${(file.size / 1024).toFixed(1)} KB`;
+        fileInfo.style.color = "#00ff88";
+      }
+    }
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const file = fileInput.files[0];
+      if (!file) {
+        uploadMessage.textContent = "Please select a file first.";
+        uploadMessage.style.color = "#ff6b6b";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('xml_file', file);
+
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '0%';
+      uploadMessage.textContent = "";
+
+      try {
+        const res = await axios.post("{% url 'upload_xml' %}", formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          onUploadProgress: (event) => {
+            const percent = Math.round((event.loaded * 100) / event.total);
+            progressBar.style.width = `${percent}%`;
+          }
+        });
+        uploadMessage.textContent = res.data.message;
+        uploadMessage.style.color = "#00ff88";
+        progressBar.style.width = '100%';
+      } catch (err) {
+        uploadMessage.textContent = err.response?.data?.error || "Upload failed.";
+        uploadMessage.style.color = "#ff6b6b";
+        progressContainer.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html> {% endcomment %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload XML | Brickworks Command Center</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000000;
+      color: #e0e0e0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(20, 20, 20, 0.95);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2rem 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 0 2rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      color: #888;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .nav-link.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-left: 3px solid #00d4ff;
+    }
+
+    .nav-link i {
+      font-size: 1.2rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .main-content {
+      margin-left: 280px;
+      flex: 1;
+      padding: 3rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-btn {
+      position: fixed;
+      top: 3rem;
+      right: 3rem;
+      padding: 0.8rem 2rem;
+      background: #000;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .process-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .upload-card {
+      background: rgba(30, 30, 30, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .upload-area {
+      width: 100%;
+      height: 160px;
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .upload-area:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .upload-area.dragover {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: #00d4ff;
+    }
+
+    .upload-area.uploaded {
+      border-color: #ffffffff;
+      background: rgba(0, 255, 136, 0.05);
+    }
+
+    .upload-icon {
+      font-size: 2.5rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .upload-area:hover .upload-icon {
+      color: #888;
+      transform: scale(1.1);
+    }
+
+    .upload-area.uploaded .upload-icon {
+      color: #ffffffff;
+    }
+
+    .upload-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .file-info {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 0.5rem;
+    }
+
+    .file-info.success {
+      color: #ffffffff;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ffffffff, #ffffffff);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0, 255, 136, 0.2);
+      border: 1px solid #00ff88;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #00ff88;
+      font-weight: 600;
+      display: none;
+    }
+
+    .status-badge.show {
+      display: block;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      color: #000;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+      display: none;
+    }
+
+    .toast.error {
+      background: rgba(255, 51, 102, 0.95);
+      color: #fff;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 2rem 1rem;
+      }
+
+      .process-btn {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .upload-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2><i class="fas fa-cubes"></i> BrickWorks Admin</h2>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/dashboard/" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+      <li><a href="#" class="nav-link active"><i class="fas fa-upload"></i> Upload XML</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-folder"></i> Category</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-palette"></i> Colors</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-cubes"></i> Parts</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-user"></i> Minifigures</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-cog"></i> Gears</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-swatchbook"></i> Parts With Colors</a></li>
+      <li><a href="{% url 'db_viewer' %}" class="nav-link"><i class="fas fa-users"></i> Users</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Upload XML</h1>
+    </div>
+
+    <button class="process-btn" onclick="processAllXML()">
+      <i class="fas fa-play"></i> Process XML
+    </button>
+
+    <div class="upload-grid">
+      <!-- Color XML -->
+      <div class="upload-card">
+        <div class="status-badge" id="badge-color">Uploaded</div>
+        <label for="color-file" class="upload-area" id="drop-color">
+          <i class="fas fa-upload upload-icon"></i>
+        </label>
+        <input type="file" id="color-file" accept=".xml" onchange="handleFileSelect('color', this)">
+        <div class="upload-title">Upload Color XML</div>
+        <div class="file-info" id="info-color">No file selected</div>
+        <div class="progress-container" id="progress-color">
+          <div class="progress-bar" id="bar-color"></div>
+        </div>
+      </div>
+
+      <!-- Category XML -->
+      <div class="upload-card">
+        <div class="status-badge" id="badge-category">Uploaded</div>
+        <label for="category-file" class="upload-area" id="drop-category">
+          <i class="fas fa-upload upload-icon"></i>
+        </label>
+        <input type="file" id="category-file" accept=".xml" onchange="handleFileSelect('category', this)">
+        <div class="upload-title">Upload Category XML</div>
+        <div class="file-info" id="info-category">No file selected</div>
+        <div class="progress-container" id="progress-category">
+          <div class="progress-bar" id="bar-category"></div>
+        </div>
+      </div>
+
+      <!-- Parts XML -->
+      <div class="upload-card">
+        <div class="status-badge" id="badge-parts">Uploaded</div>
+        <label for="parts-file" class="upload-area" id="drop-parts">
+          <i class="fas fa-upload upload-icon"></i>
+        </label>
+        <input type="file" id="parts-file" accept=".xml" onchange="handleFileSelect('parts', this)">
+        <div class="upload-title">Upload Parts XML</div>
+        <div class="file-info" id="info-parts">No file selected</div>
+        <div class="progress-container" id="progress-parts">
+          <div class="progress-bar" id="bar-parts"></div>
+        </div>
+      </div>
+
+      <!-- Minifigure XML -->
+      <div class="upload-card">
+        <div class="status-badge" id="badge-minifigure">Uploaded</div>
+        <label for="minifigure-file" class="upload-area" id="drop-minifigure">
+          <i class="fas fa-upload upload-icon"></i>
+        </label>
+        <input type="file" id="minifigure-file" accept=".xml" onchange="handleFileSelect('minifigure', this)">
+        <div class="upload-title">Upload Minifigure XML</div>
+        <div class="file-info" id="info-minifigure">No file selected</div>
+        <div class="progress-container" id="progress-minifigure">
+          <div class="progress-bar" id="bar-minifigure"></div>
+        </div>
+      </div>
+
+      <!-- Gears XML -->
+      <div class="upload-card">
+        <div class="status-badge" id="badge-gears">Uploaded</div>
+        <label for="gears-file" class="upload-area" id="drop-gears">
+          <i class="fas fa-upload upload-icon"></i>
+        </label>
+        <input type="file" id="gears-file" accept=".xml" onchange="handleFileSelect('gears', this)">
+        <div class="upload-title">Upload Gears XML</div>
+        <div class="file-info" id="info-gears">No file selected</div>
+        <div class="progress-container" id="progress-gears">
+          <div class="progress-bar" id="bar-gears"></div>
+        </div>
+      </div>
+
+      <!-- Codes XML -->
+      <div class="upload-card">
+        <div class="status-badge" id="badge-codes">Uploaded</div>
+        <label for="codes-file" class="upload-area" id="drop-codes">
+          <i class="fas fa-upload upload-icon"></i>
+        </label>
+        <input type="file" id="codes-file" accept=".xml" onchange="handleFileSelect('codes', this)">
+        <div class="upload-title">Upload Codes XML</div>
+        <div class="file-info" id="info-codes">No file selected</div>
+        <div class="progress-container" id="progress-codes">
+          <div class="progress-bar" id="bar-codes"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+
+
+     // Get CSRF token from Django cookie
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === name + "=") {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    const csrftoken = getCookie("csrftoken");
+    axios.defaults.headers.common["X-CSRFToken"] = csrftoken;
+
+    const fileTypes = ['color', 'category', 'parts', 'minifigure', 'gears', 'codes'];
+
+    // Setup drag and drop for all cards
+    fileTypes.forEach(type => {
+      const dropZone = document.getElementById(`drop-${type}`);
+      const fileInput = document.getElementById(`${type}-file`);
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+
+      dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length > 0) {
+          fileInput.files = e.dataTransfer.files;
+          handleFileSelect(type, fileInput);
+        }
+      });
+    });
+
+    function handleFileSelect(type, input) {
+      const file = input.files[0];
+      if (!file) return;
+
+      const info = document.getElementById(`info-${type}`);
+      const dropZone = document.getElementById(`drop-${type}`);
+      
+      info.textContent = `${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+      info.classList.add('success');
+      
+      uploadFile(type, file);
+    }
+
+    async function uploadFile(type, file) {
+      const progressContainer = document.getElementById(`progress-${type}`);
+      const progressBar = document.getElementById(`bar-${type}`);
+      const dropZone = document.getElementById(`drop-${type}`);
+      const badge = document.getElementById(`badge-${type}`);
+
+      progressContainer.style.display = 'block';
+      progressBar.style.width = '0%';
+
+      const formData = new FormData();
+      formData.append('xml_file', file);
+      formData.append('file_type', type);
+
+      try {
+        const response = await axios.post("{% url 'upload_xml' %}", formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          onUploadProgress: (event) => {
+            const percent = Math.round((event.loaded * 100) / event.total);
+            progressBar.style.width = `${percent}%`;
+          }
+        });
+
+        dropZone.classList.add('uploaded');
+        badge.classList.add('show');
+        showToast(response.data.message || `${type} XML uploaded successfully!`);
+      } catch (error) {
+        showToast(error.response?.data?.error || 'Upload failed', true);
+        progressContainer.style.display = 'none';
+      }
+    }
+
+    function processAllXML() {
+      showToast('Processing all XML files...');
+      // Add your processing logic here
+      axios.post('{% url "initialise_data" %}')
+  .then(res => {
+    showToast(`✓ Initialization successfully.`);
+    console.log('Export data:', res.data.status);
+  })
+  .catch(err => {
+    console.error('Error Processing Data:', err);
+    showToast(`✗ Error Processing Data ${err}`, true);
+  });
+    }
+
+  //   function exportData() {
+//  const config = tableConfig[currentTable] || tableConfig.category;
+ // showToast(`Exporting ${config.exportName}...`);
+///
+//axios.post(`/dashboard/export/${config.exportName}/`)
+//  .then(res => {
+ //   showToast(`✓ Exported ${config.exportName.toUpperCase()} successfully.`);
+  //  console.log('Export data:', res.data.status);
+ // })
+  //.catch(err => {
+  //  console.error('Error exporting:', err);
+  //  showToast(`✗ Failed to export ${config.exportName}`);
+ // });
+// }
+///
+    function showToast(message, isError = false) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${isError ? 'error' : ''} show`;
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+</html>

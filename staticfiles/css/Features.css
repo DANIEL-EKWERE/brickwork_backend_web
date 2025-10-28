@@ -1,0 +1,477 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Common CSS
+2. Page CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Common CSS
+--------------------------------------*/
+.download_on_the {
+  color: var(--white_a700) !important;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  /* font-family: Plus Jakarta Sans; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--light_blue_500) !important;
+  height: 48px;
+  min-width: 254px;
+  border-radius: 8px !important;
+}
+
+.get_it_on {
+  color: var(--gray_900_01) !important;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  /* font-family: Plus Jakarta Sans; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--blue_gray_50) !important;
+  height: 48px;
+  min-width: 202px;
+  border-radius: 8px !important;
+}
+
+.image {
+  height: 168px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+}
+
+.rowefficient {
+  display: flex;
+}
+
+.easilymanage {
+  color: var(--white_a700) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 21px;
+}
+
+.column-1 {
+  gap: var(--space-2xl);
+  display: flex;
+  background-color: var(--white_a700);
+  width: 100%;
+  flex-direction: column;
+  padding: var(--space-4xl);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.row-1 {
+  background-color: var(--white_a700);
+  display: flex;
+}
+
+.columnrealtime {
+  gap: var(--space-xs);
+  display: flex;
+  background-color: var(--white_a700);
+  flex-direction: column;
+}
+
+.realtime {
+  color: var(--gray_900_01) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 20px;
+}
+
+.description-1 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 21px;
+}
+
+.whychoose_one {
+  color: var(--white_a700) !important;
+  letter-spacing: -1px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.rowvector {
+  display: flex;
+  align-items: center;
+}
+
+.vector-3 {
+  height: 10px;
+}
+
+.vector_seven {
+  height: 8px;
+  width: 6px;
+}
+
+.vector_thirteen {
+  height: 12px;
+  align-self: flex-end;
+}
+
+.vector-2 {
+  height: 8px;
+  align-self: flex-end;
+  width: 6px;
+}
+
+/*-------------------------------------
+  2. Page CSS
+--------------------------------------*/
+.features-one {
+  height: 100%;
+  gap: 60px;
+  background-color: var(--black_900);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  @media only screen and (max-width: 550px) {
+    gap: 30px;
+  }
+}
+
+.headerheaderlog {
+  background-color: var(--gray_900);
+  padding: var(--space-2xl);
+  border-bottom: 1px solid var(--gray_200);
+}
+
+.newscreenbody {
+  margin-left: 160px;
+  margin-right: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.column {
+  gap: var(--space-11xl);
+  display: flex;
+  width: 96%;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+    gap: 60px;
+    padding-left: var(--space-5xl);
+    padding-right: var(--space-5xl);
+  }
+
+  @media only screen and (max-width: 550px) {
+    gap: 40px;
+  }
+}
+
+.rowwelcometo {
+  gap: var(--space-9xl);
+  display: flex;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.image_six {
+  height: 280px;
+  width: 44%;
+  object-fit: contain;
+  border-radius: var(--radius-xs);
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+.columnwelcometo {
+  gap: var(--space-9xl);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    align-self: stretch;
+  }
+}
+
+.columnwelcometo-1 {
+  gap: var(--space-md);
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+}
+
+.welcometo_one {
+  color: var(--white_a700) !important;
+  letter-spacing: -2px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 60px;
+}
+
+.description {
+  color: var(--white_a700) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 24px;
+}
+
+.columnwhychoose {
+  gap: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.columnwhychoose-1 {
+  gap: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.description_one {
+  color: var(--white_a700) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  width: 78%;
+  line-height: 24px;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+.features_three {
+  gap: var(--space-2xl);
+  display: flex;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.column-9 {
+  margin-bottom: 12px;
+  gap: var(--space-2xl);
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    margin-bottom: 0px;
+  }
+}
+
+.column-10 {
+  margin-bottom: 32px;
+  gap: var(--space-2xl);
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    margin-bottom: 0px;
+  }
+}
+
+.column-11 {
+  margin-bottom: 28px;
+  gap: var(--space-2xl);
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    margin-bottom: 0px;
+  }
+}
+
+.columnkeyfeatur {
+  margin-top: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    padding-left: var(--space-5xl);
+    padding-right: var(--space-5xl);
+  }
+}
+
+.keyfeatures_one {
+  color: var(--white_a700) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  align-self: flex-start;
+  background-color: var(--black_900);
+}
+
+.columnpowerful {
+  margin-top: 14px;
+  gap: var(--space-4xl);
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.powerful_one {
+  color: var(--white_a700) !important;
+  letter-spacing: -1px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  width: 74%;
+  line-height: 45px;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+.description_two {
+  color: var(--white_a700) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  width: 74%;
+  line-height: 24px;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+.features_four {
+  margin-top: 26px;
+  align-self: stretch;
+  display: grid;
+  gap: var(--space-2xl);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  justify-content: center;
+  @media only screen and (max-width: 1050px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media only screen and (max-width: 550px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.columnreadytota {
+  margin-top: 28px;
+  margin-left: 66px;
+  margin-right: 66px;
+  gap: var(--space-9xl);
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.columnreadytota-1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.jointhousands {
+  color: var(--white_a700) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  align-self: center;
+}
+
+.row {
+  padding-left: var(--space-xs);
+  padding-right: var(--space-xs);
+  gap: var(--space-2xl);
+  display: flex;
+}
+
+.row_four {
+  margin-top: 134px;
+  width: 96%;
+  display: flex;
+  justify-content: center;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+    padding-left: var(--space-5xl);
+    padding-right: var(--space-5xl);
+  }
+}
+
+.columnvector {
+  gap: var(--space-6xl);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row_two {
+  margin-left: 28px;
+  margin-right: 38px;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-5xl);
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    flex-direction: column;
+  }
+}
+
+.row_one {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 550px) {
+    align-self: stretch;
+  }
+}
+
+.vector_three {
+  height: 8px;
+}
+
+.vector-8 {
+  height: 8px;
+  width: 8px;
+}
+
+.vector_nineteen {
+  height: 12px;
+  background-color: var(--blue_gray_500);
+  width: 1px;
+}
+
+.image_one {
+  height: 12px;
+  width: 24%;
+  object-fit: contain;
+}
+
+.vector {
+  height: 12px;
+  width: 10px;
+}
+
+.vector-1 {
+  height: 8px;
+  align-self: flex-end;
+  width: 8px;
+}
+
+.vector_fortyone {
+  height: 12px;
+  margin-left: 4px;
+}
+
+.vector-7 {
+  height: 8px;
+  align-self: flex-end;
+}
+
+.row_three {
+  gap: var(--space-4xl);
+  display: flex;
+}
+
+.image_five {
+  height: 14px;
+  width: 100%;
+}

@@ -1,0 +1,163 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Brickworks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <img
+      alt="Logo"
+      src="{% static 'images/img_header_logo.png' %}"
+      style="width: 0px; height: 0px; display: none"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Blog.css' %}" />
+  </head>
+  <body>
+    <div class="pricing-one">
+      <div class="columnsettings">
+        <header class="headerheaderlog-1">
+          <div class="rowheaderlogo">
+            <img src="{% static 'images/img_header_logo.png' %}" alt="Headerlogo" class="headerlogo_one" />
+            <div class="rowfeatures_two">
+              <ul class="rowfeatures">
+                <li>
+                  <a href="{% url 'home' %}" style="padding-top: 16px;">
+                    <p class="features_two ui text size-textxl">Features</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="" style="padding-top: 16px;">
+                    <p class="features_two ui text size-textxl">Community</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'pricing' %}" style="padding-top: 16px;">
+                    <p class="features_two ui text size-textxl">Pricing</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'blog' %}">
+                    
+                    <button class="download ui button size-xl fill round">Blog</button>
+                  </a>
+                </li>
+              </ul>
+             <a href="{% url 'dashboard' %}">
+              <p class="features_two ui text size-textxl">Dashboard</p>
+            </a>
+            </div>
+          </div>
+        </header>
+        <div class="columnblog_one container-sm">
+          <div class="rowblog_one">
+            <h1 class="choosetheplan ui heading size-heading7xl">Blog</h1>
+          </div>
+          <label class="search ui input size-2xl fill">
+            <div class="dhi-group">
+              <img src="{% static 'images/img_search_gray_500.svg' %}" alt="Search" class="search-1" />
+            </div>
+            <input name="search" placeholder="Search  articles" type="text" />
+          </label>
+          <div class="blog_four">
+            <div class="rowthefutureof container-xs">
+              <img src="{% static 'images/img_depth_6_frame_0_256x464.png' %}" alt="Image" class="image-11" />
+              <div class="columnthefuture">
+                <h2 class="thefutureof ui heading size-heading3xl">
+                  The Future of Mobile Apps: Trends and Predictions
+                </h2>
+                <p class="description-9 ui text size-text2xl">
+                  Explore the latest trends shaping the mobile app landscape, including AI integration, augmented
+                  reality, and the rise of super apps. Gain insights into what the future holds for mobile technology.
+                </p>
+                <p class="class-2024cloudsync ui text size-text2xl">May 15, 2024</p>
+              </div>
+            </div>
+            <div class="rowthefutureof container-xs">
+              <img src="{% static 'images/img_depth_6_frame_0_1.png' %}" alt="Image" class="image-11" />
+              <div class="columnthefuture">
+                <h3 class="thefutureof ui heading size-heading3xl">
+                  Maximizing User Engagement: Strategies for App Retention
+                </h3>
+                <p class="description-9 ui text size-text2xl">
+                  Discover effective strategies to boost user engagement and retention for your mobile app. Learn about
+                  personalization, push notifications, in-app messaging, and loyalty programs.
+                </p>
+                <p class="class-2024cloudsync ui text size-text2xl">April 22, 2024</p>
+              </div>
+            </div>
+            <div class="rowthefutureof container-xs">
+              <img src="{% static 'images/img_depth_6_frame_0_2.png' %}" alt="Image" class="image-11" />
+              <div class="columnthefuture">
+                <h4 class="thefutureof ui heading size-heading3xl">
+                  Building a Successful App Launch: A Comprehensive Guide
+                </h4>
+                <p class="description-9 ui text size-text2xl">
+                  Get a step-by-step guide to launching your mobile app successfully. From pre-launch marketing to
+                  post-launch optimization, cover all essential aspects for a smooth and impactful launch.
+                </p>
+                <p class="class-2024cloudsync ui text size-text2xl">March 10, 2024</p>
+              </div>
+            </div>
+            <div class="rowthefutureof container-xs">
+              <img src="{% static 'images/img_depth_6_frame_0_3.png' %}" alt="Image" class="image-11" />
+              <div class="columnthefuture">
+                <h5 class="thefutureof ui heading size-heading3xl">
+                  Monetization Models for Mobile Apps: Choosing the Right Approach
+                </h5>
+                <p class="description-9 ui text size-text2xl">
+                  Understand different monetization models for mobile apps, including in-app purchases, subscriptions,
+                  advertising, and freemium models. Learn how to select the best approach for your app and target
+                  audience.
+                </p>
+                <p class="class-2024cloudsync ui text size-text2xl">February 5, 2024</p>
+              </div>
+            </div>
+          </div>
+          <div class="rowarrowright">
+            <img src="{% static 'images/img_arrow_right.svg' %}" alt="Arrowright" class="arrowright_one" />
+            <ul class="pagination_one ui pagination">
+              <li class="active">
+                <a href="javascript:void(0)"> 1</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"> 2</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"> 3</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"> ...</a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"> 10</a>
+              </li>
+            </ul>
+            <img src="{% static 'images/img_vector_0_white_a700_18x18.svg' %}" alt="Vectorzero" class="vectorzero_one" />
+          </div>
+        </div>
+        <div class="rowtermsof_one">
+          <div class="columntermsof">
+            <div class="rowtermsof-1">
+              <a href="#">
+                <p class="class-2024cloudsync ui text size-text2xl">Terms of Service</p>
+              </a>
+              <a href="#">
+                <p class="class-2024cloudsync ui text size-text2xl">Privacy Policy</p>
+              </a>
+              <a href="#">
+                <p class="class-2024cloudsync ui text size-text2xl">Contact Us</p>
+              </a>
+            </div>
+            <p class="class-2024cloudsync ui text size-text2xl">© 2024 Innovate. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

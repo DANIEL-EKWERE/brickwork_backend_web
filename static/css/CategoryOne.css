@@ -1,0 +1,192 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Common CSS
+2. Page CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Common CSS
+--------------------------------------*/
+.rowcolorname-2 {
+  flex: 1;
+  display: flex;
+  padding: 26px var(--space-6xl);
+  @media only screen and (max-width: 550px) {
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+  }
+}
+
+.colorpalette-1 {
+  margin-right: 40px;
+  flex: 1;
+  display: flex;
+  align-self: stretch;
+  border-top: 1px solid var(--gray_200);
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+    margin-right: 0px;
+  }
+}
+
+.rowbrickname {
+  width: 38%;
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+.rowzipcode-1 {
+  display: flex;
+  padding: 26px var(--space-5xl);
+  @media only screen and (max-width: 550px) {
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+  }
+}
+
+.row-13 {
+  padding-left: 44px;
+  padding-right: 44px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    align-self: stretch;
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.rowhexcode {
+  flex: 1;
+  display: flex;
+  padding: 26px var(--space-5xl);
+  @media only screen and (max-width: 550px) {
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+  }
+}
+
+/*-------------------------------------
+  2. Page CSS
+--------------------------------------*/
+.add_new_part {
+  color: var(--gray_900_01) !important;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--blue_gray_50) !important;
+  box-shadow: var(--shadow-xs);
+  height: 32px;
+  min-width: 166px;
+  border-radius: 8px !important;
+  border: 1px solid var(--black_900);
+}
+
+.rowdownload_one-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-6xl);
+  padding: var(--space-3xl) var(--space-4xl);
+}
+
+.export_parts {
+  color: var(--white_a700) !important;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: var(--gray_900_01) !important;
+  height: 40px;
+  min-width: 118px;
+  border-radius: 8px !important;
+}
+
+.rowsn_one-1 {
+  background-color: var(--white_a700);
+  width: 94%;
+  display: flex;
+  justify-content: center;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.rowpartnumber {
+  width: 38%;
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.rowcolorname {
+  padding-left: var(--space-6xl);
+  padding-right: var(--space-6xl);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    align-self: stretch;
+  }
+}
+
+.rowcolorname-1 {
+  flex: 1;
+  display: flex;
+  padding: var(--space-3xl) 44px;
+  @media only screen and (max-width: 1050px) {
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.rowcolorcode {
+  flex: 1;
+  display: flex;
+  padding: var(--space-3xl) var(--space-5xl);
+}
+
+.actions_one-2 {
+  color: var(--blue_gray_500) !important;
+  margin-left: 16px;
+  font-family: Inter !important;
+  font-weight: 500 !important;
+}
+
+.colorpalette {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    margin-right: 0px;
+  }
+}
+
+.rowgray {
+  flex: 1;
+  display: flex;
+  padding: var(--space-8xl) var(--space-6xl);
+  @media only screen and (max-width: 550px) {
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+  }
+}
+
+.gray {
+  color: var(--blue_gray_500) !important;
+  font-family: Inter !important;
+  align-self: flex-end;
+}

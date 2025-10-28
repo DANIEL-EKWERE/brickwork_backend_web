@@ -1,0 +1,208 @@
+/*=========== TABLE OF CONTENTS ===========
+1. Common CSS
+2. Page CSS
+==========================================*/
+
+/*-------------------------------------
+  1. Common CSS
+--------------------------------------*/
+.viewhierarchy-5 {
+  gap: var(--space-xs);
+  background-color: var(--white_a700);
+  flex: 1;
+  align-self: stretch;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.viewhierarchy-7 {
+  gap: var(--space-xs);
+  background-color: var(--white_a700);
+  flex: 1;
+  width: 100%;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray_300);
+}
+
+.column_one {
+  background-color: var(--gray_900_03);
+  align-self: stretch;
+  padding: var(--space-6xl);
+  border-radius: var(--radius-xs);
+}
+
+.column-15 {
+  background-color: var(--gray_800);
+  padding: 44px 42px;
+  border-radius: var(--radius-sm);
+  @media only screen and (max-width: 1050px) {
+    padding: var(--space-6xl);
+  }
+}
+
+.profileimage {
+  height: 50px;
+  width: 100%;
+  @media only screen and (max-width: 1050px) {
+    height: auto;
+  }
+}
+
+.text-1 {
+  color: var(--black_900) !important;
+  margin-left: 18px;
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+  }
+}
+
+/*-------------------------------------
+  2. Page CSS
+--------------------------------------*/
+.rowbrickworks-4 {
+  gap: var(--space-sm);
+  background-color: var(--white_a700);
+  display: flex;
+  align-items: flex-start;
+  padding: var(--space-6xl);
+}
+
+.sidebarbrickwor-4 {
+  padding-top: var(--space-5xl);
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  gap: var(--space-5xl);
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white_a700);
+  width: 322px;
+  height: 100vh;
+  position: sticky !important;
+  top: 0px;
+  overflow: auto;
+}
+
+.columnprofile-4 {
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--space-lg);
+  padding: 0px;
+  li {
+    width: 100%;
+  }
+
+  a {
+    gap: var(--space-3xl);
+    color: var(--gray_900_01);
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-xs);
+    &:hover {
+      color: var(--white_a700);
+      background-color: var(--gray_800) !important;
+    }
+  }
+
+  span {
+    flex-grow: 1;
+  }
+}
+
+.columnuploadxml {
+  gap: var(--space-3xl);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.rowview_one-4 {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  padding: var(--space-5xl);
+}
+
+.view_one-1 {
+  height: 32px;
+  background-color: var(--blue_gray_50);
+  width: 18%;
+  border-radius: var(--radius-xs);
+}
+
+.process_xml {
+  color: var(--blue_gray_50) !important;
+  margin-right: 16px;
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: var(--gray_900_01) !important;
+  height: 40px;
+  min-width: 122px;
+  border-radius: 8px !important;
+  @media only screen and (max-width: 1050px) {
+    margin-right: 0px;
+  }
+}
+
+.rowtext {
+  padding-left: var(--space-5xl);
+  padding-right: var(--space-5xl);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: column;
+  }
+}
+
+.viewhierarchy-4 {
+  gap: var(--space-12xl);
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  @media only screen and (max-width: 1050px) {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 550px) {
+    flex-direction: column;
+  }
+}
+
+.columnuploadcat {
+  margin-top: 12px;
+  padding-left: 56px;
+  padding-right: 56px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    align-self: stretch;
+    padding-left: var(--space-6xl);
+    padding-right: var(--space-6xl);
+  }
+}
+
+.profileavatar {
+  width: 82%;
+  display: grid;
+  gap: 108px;
+  row-gap: var(--space-12xl);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: center;
+  @media only screen and (max-width: 1050px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

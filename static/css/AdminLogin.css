@@ -1,0 +1,117 @@
+.admin-login {
+  height: 100%;
+  background-color: var(--white_a700);
+  width: 100%;
+}
+
+.columnvectorzer {
+  height: 100%;
+  background-color: var(--gray_900_01);
+}
+
+.rowvectorzero {
+  gap: var(--space-4xl);
+  display: flex;
+  align-items: center;
+  padding: var(--space-md) 40px;
+  border-bottom: 1px solid var(--gray_200);
+  @media only screen and (max-width: 550px) {
+    padding-left: var(--space-5xl);
+    padding-right: var(--space-5xl);
+  }
+}
+
+.vectorzero_one-1 {
+  height: 16px;
+  width: 16px;
+}
+
+.columnadminlogi {
+  height: 100%;
+  gap: var(--space-11xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120px 56px;
+  @media only screen and (max-width: 1050px) {
+    gap: 60px;
+    padding: var(--space-5xl);
+  }
+
+  @media only screen and (max-width: 550px) {
+    gap: 40px;
+  }
+}
+
+.columnusername {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media only screen and (max-width: 1050px) {
+    width: 100%;
+  }
+}
+
+.username {
+  color: var(--blue_gray_300) !important;
+  margin-left: 12px;
+  margin-right: 14px;
+  padding-left: var(--space-4xl);
+  padding-right: var(--space-4xl);
+  background-color: var(--blue_gray_900_01) !important;
+  align-self: stretch;
+  height: 56px;
+  border-radius: var(--radius-xs) 8px !important 8px !important var(--radius-xs);
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.password {
+  color: var(--blue_gray_300) !important;
+  margin-top: 24px;
+  margin-left: 12px;
+  margin-right: 14px;
+  padding-left: var(--space-4xl);
+  padding-right: var(--space-4xl);
+  background-color: var(--blue_gray_900_01) !important;
+  align-self: stretch;
+  height: 56px;
+  border-radius: var(--radius-xs) 8px !important 8px !important var(--radius-xs);
+  @media only screen and (max-width: 1050px) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.forgotpassword-link {
+  margin-right: 8px;
+  align-self: flex-end;
+  @media only screen and (max-width: 1050px) {
+    margin-right: 0px;
+  }
+}
+
+.forgotpassword {
+  color: var(--blue_gray_300) !important;
+  padding-top: 10px;
+}
+
+.login {
+  color: var(--white_a700) !important;
+  margin-top: 36px;
+  padding-left: 34px;
+  padding-right: 34px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: var(--light_blue_500) !important;
+  align-self: stretch;
+  height: 48px;
+  border-radius: 8px !important;
+  @media only screen and (max-width: 550px) {
+    padding-left: var(--space-5xl);
+    padding-right: var(--space-5xl);
+  }
+}
