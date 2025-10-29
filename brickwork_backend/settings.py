@@ -106,38 +106,38 @@ WSGI_APPLICATION = 'brickwork_backend.wsgi.application'
 # }
 
 # settings.py
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     },
-#     'brick_works': {  # Your specific database
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'brick_works.db',  # Your .db file
-#     }
-# }
-# postgresql://postgres:WjjcnJGpPciOxUvIagSeDZarnkgDhQqz@yamanote.proxy.rlwy.net:18961/railway
-# DATABASES = {
-#     'default': dj_database_url.parse("postgresql://alpha_trade_user:91XO3T8NOd60sPeyPtDQitHMwDpVZNPL@dpg-ct0um5btq21c73ejdtt0-a.oregon-postgres.render.com/alpha_trade")
-# }
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME":    "railway",#os.getenv("DB_NAME"),
-        "USER":   "postgres",#os.getenv("DB_USER"),
-        "PASSWORD": "WjjcnJGpPciOxUvIagSeDZarnkgDhQqz",#os.getenv("DB_PASSWORD"),
-        "HOST": "yamanote.proxy.rlwy.net",#os.getenv("DB_HOST"),
-        "PORT": 18961,#os.getenv("DB_PORT", 5432),
-        "OPTIONS": {
-            "sslmode": "require"
-        },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     },
     'brick_works': {  # Your specific database
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'brick_works.db',  # Your .db file
     }
 }
+# postgresql://postgres:WjjcnJGpPciOxUvIagSeDZarnkgDhQqz@yamanote.proxy.rlwy.net:18961/railway
+# DATABASES = {
+#     'default': dj_database_url.parse("postgresql://alpha_trade_user:91XO3T8NOd60sPeyPtDQitHMwDpVZNPL@dpg-ct0um5btq21c73ejdtt0-a.oregon-postgres.render.com/alpha_trade")
+# }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME":    "railway",#os.getenv("DB_NAME"),
+#         "USER":   "postgres",#os.getenv("DB_USER"),
+#         "PASSWORD": "WjjcnJGpPciOxUvIagSeDZarnkgDhQqz",#os.getenv("DB_PASSWORD"),
+#         "HOST": "yamanote.proxy.rlwy.net",#os.getenv("DB_HOST"),
+#         "PORT": 18961,#os.getenv("DB_PORT", 5432),
+#         "OPTIONS": {
+#             "sslmode": "require"
+#         },
+#     },
+#     'brick_works': {  # Your specific database
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'brick_works.db',  # Your .db file
+#     }
+# }
 #https://github.com/DANIEL-EKWERE/brickwork_backend_web.git
 
 # Password validation

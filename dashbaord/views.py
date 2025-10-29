@@ -109,6 +109,7 @@ def export_category_view(request):
 @login_required(login_url='login')
 @require_POST
 def export_parts_view(request):
+    print("exported parts method called")
     fn = getattr(ingestion, 'export_parts_to_json', None)
     if not fn:
         return JsonResponse({'error': 'Not implemented'}, status=400)
@@ -148,6 +149,7 @@ def export_gears_view(request):
 @login_required(login_url='login')
 @require_POST
 def export_parts_with_colors_view(request):
+    print("exported parts with colors method called")
     fn = getattr(ingestion, 'export_parts_with_colors_to_json', None)
     if not fn:
         return JsonResponse({'error': 'Not implemented'}, status=400)
@@ -383,7 +385,7 @@ def add_row(request, table_name):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
     
-    allowed_tables = ['categories', 'color', 'parts', 'minifigures', 'gears', 'parts_colors']
+    allowed_tables = ['category', 'color', 'parts', 'minifigures', 'gears', 'parts_colors']
     if table_name not in allowed_tables:
         return JsonResponse({'error': 'Table not allowed'}, status=400)
     

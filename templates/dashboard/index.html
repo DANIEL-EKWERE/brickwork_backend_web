@@ -375,13 +375,13 @@ body {
     <div class="content-body">
       <div class="cards-grid">
         <!-- Upload XML Card -->
-        <a href="{% url 'upload_xml_page' %}" class="dashboard-card">
+        {% comment %} <a href="{% url 'upload_xml_page' %}" class="dashboard-card">
           <div class="card-icon">
             <i class="fas fa-upload"></i>
           </div>
           <div class="card-title">Upload XML</div>
           <div class="card-label">Import data from XML files</div>
-        </a>
+        </a> {% endcomment %}
 
         <!-- Category Card -->
         <a href="{% url 'db_viewer' %}" class="dashboard-card" data-table="category">
